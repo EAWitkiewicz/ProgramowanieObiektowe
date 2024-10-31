@@ -1,12 +1,14 @@
 import java.io.Console;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 
 public class zestaw4 {
     public static void main(String[] args) {
         int[] tab = {1, 2, 3};
         //wypiszTablice(tab, 2, 3);
-        int[] tablica = generujTablice(5, 1, 3);
+        int[] tablica = generujTablice(8, 1, 9);
         System.out.println(Arrays.toString(tablica));
 //        ileNieparzystych(tablica);
 //        ileParzystych(tablica);
@@ -22,79 +24,184 @@ public class zestaw4 {
         //sumaOdwrotnosci(tablica);
         //sredniaArytmetyczna(tablica);
         //sredniaGeometryczna(tablica);
-       //sredniaHarmoniczna(tablica);
+        //sredniaHarmoniczna(tablica);
 
-        System.out.println(Arrays.toString(funkcjaLiniowa(tablica, 2, 3)));
-        System.out.println(Arrays.toString(funkcjaKwadratowa(tablica, 2, 3,4)));
-        System.out.println(Arrays.toString(funkcjaWykladnicza(tablica, 2)));
+//        System.out.println(Arrays.toString(funkcjaLiniowa(tablica, 2, 3)));
+//        System.out.println(Arrays.toString(funkcjaKwadratowa(tablica, 2, 3,4)));
+//        System.out.println(Arrays.toString(funkcjaWykladnicza(tablica, 2)));
+//        System.out.println(Arrays.toString(funkcjaSignum(tablica)));
 
-//        funkcjaSignum(tab)
+//        najdluzszyCiagDodatnich(tablica);
+//        najdluzszyCiagUjemnych(tablica);
+ //       odwrocTablice(tablica);
+ //       odwrocTablice(tablica, 2, 7);
     }
-    public static int[] funkcjaSignum(int[]tab){
+
+    public static void odwrocTablice(int[]tab,int indexStart,int indexStop){
+        /** tak mozna bylo zrobic i bylby opytmalniej
+        int[] tablicaOdwrocona = Arrays.copyOf(tab, tab.length); // Kopia oryginalnej tablicy
+        int j = indexStop;  // Używamy `j` do iteracji od końca podtablicy
+        // Pętla od `indexStart` do `indexStop` włącza odwrócenie wybranego zakresu
+        for (int i = indexStart; i <= indexStop; i++) {
+            tablicaOdwrocona[i] = tab[j];
+            j--;
+        }*/
+
+        int[]tablicaOdwrocona=new int[tab.length];
+        int j=indexStop;
+        for(int i=0;i<tab.length;i++){
+            //tablicaOdwrocona[i]=tab[i];
+            if(i==indexStart){
+                while(j>=indexStart){
+                    tablicaOdwrocona[i]=tab[j];
+                    i++;
+                    j--;
+                }
+                i--;
+            }
+            else tablicaOdwrocona[i]=tab[i];
+        }
+        System.out.println(Arrays.toString(tablicaOdwrocona));
+        }
+
+
+
+
+    public static void odwrocTablice(int[]tab){
+        int[]tablicaOdwrocona=new int[tab.length];
+        for(int i= tab.length-1, j=0;i>=0 && j<=tab.length;i--,j++){
+            tablicaOdwrocona[j]=tab[i];
+        }
+        System.out.println(Arrays.toString(tablicaOdwrocona));
+    }
+
+    public static void najdluzszyCiagUjemnych(int[]tab){
+        int najdluzszyCiag = 0;
+        int ciagSprawdzany = 0;
+        int poczatekCiagu = 0;
+        int koniecCiagu = 0;
+        int aktualnyPoczatek = 0;
+
+        for (int i = 0; i < tab.length; i++) {
+            if (tab[i] < 0) {
+                ciagSprawdzany++;
+                if (ciagSprawdzany == 1) aktualnyPoczatek = i;  // Zapisz początek nowego dodatniego ciągu
+                if (ciagSprawdzany > najdluzszyCiag) {
+                    najdluzszyCiag = ciagSprawdzany;
+                    poczatekCiagu = aktualnyPoczatek;
+                    koniecCiagu = i;
+                }
+            } else {
+                ciagSprawdzany = 0;
+            }
+        }
+
+        System.out.println("Długość najdłuższego ciągu liczb ujemnych to: " + najdluzszyCiag);
+        System.out.print("Najdłuższy ciąg ujemnych to: ");
+        for (int i = poczatekCiagu; i <= koniecCiagu; i++) {
+            System.out.print(tab[i] + " ");
+        }
+    }
+
+    //tu jest po mojemu czyli słabo i niepotymalnie. Wrzucilam to w chat do sprawdzenia
+    //i wyrzcuił optymalniej i ładniej wiec na wzór  tego z chatu zrobie dla ujemnych
+    public static void najdluzszyCiagDodatnich(int[] tab) {
+        int najdluszyszCiag = 0;
+        int ciagSprawdzany = 0;
+        int indexkoncowy=0;
+        for (int i = 0; i < tab.length; i++) {
+            if (tab[i] > 0) {
+                for (int j = i;j<tab.length ; j++) {
+                    if (tab[j] > 0) {
+                        ciagSprawdzany++;
+                    } else {
+                        break;
+                    }
+                }
+                i=i+ciagSprawdzany;
+                if (ciagSprawdzany > najdluszyszCiag) {
+                    najdluszyszCiag = ciagSprawdzany;
+                    indexkoncowy=i-1;
+                }
+                ciagSprawdzany = 0;
+            }
+        }
+        System.out.println("Długość najdłuższego ciągu dodatniego to: "+najdluszyszCiag);
+        int indexpoczatkowy=indexkoncowy-najdluszyszCiag+1;
+        System.out.print("Najdluzszy ciag dodatnich to: ");
+        for (int i = indexpoczatkowy; i < tab.length; i++) {
+            if(tab[i]<=0) break;
+            System.out.print(tab[i]+" ");
+        }
+    }
+
+    public static int[] funkcjaSignum(int[] tab) {
         int[] tablica = tab.clone();
-        for(int i=0;i< tab.length;i++){;
-            if(tablica[i]>0)tablica[i]=1;
-            if(tablica[i]==0)tablica[i]=0;
-            if(tablica[i]<0)tablica[i]=-1;
+        for (int i = 0; i < tab.length; i++) {
+            ;
+            if (tablica[i] > 0) tablica[i] = 1;
+            if (tablica[i] == 0) tablica[i] = 0;
+            if (tablica[i] < 0) tablica[i] = -1;
         }
         return tablica;
     }
 
-    public static double[] funkcjaWykladnicza(int[]tab,double a){
-        double[]tablica=new double[tab.length];
-        for(int i=0;i< tab.length;i++){
-            tablica[i]=Math.pow(a,tab[i]);
+    public static double[] funkcjaWykladnicza(int[] tab, double a) {
+        double[] tablica = new double[tab.length];
+        for (int i = 0; i < tab.length; i++) {
+            tablica[i] = Math.pow(a, tab[i]);
         }
         return tablica;
     }
 
-    public static double[] funkcjaKwadratowa(int[]tab,double a,double b,double c){
-        double[]tablica=new double[tab.length];
-        for(int i=0;i< tab.length;i++){
-            tablica[i]=Math.pow(a*tab[i],2)+b*tab[i]+c;
+    public static double[] funkcjaKwadratowa(int[] tab, double a, double b, double c) {
+        double[] tablica = new double[tab.length];
+        for (int i = 0; i < tab.length; i++) {
+            tablica[i] = Math.pow(a * tab[i], 2) + b * tab[i] + c;
         }
         return tablica;
     }
 
-    public static double[] funkcjaLiniowa(int[]tab,double a,double b){
-        double[]tablica=new double[tab.length];
-        for(int i=0;i< tab.length;i++){
-        tablica[i]=a*tab[i]+b;
+    public static double[] funkcjaLiniowa(int[] tab, double a, double b) {
+        double[] tablica = new double[tab.length];
+        for (int i = 0; i < tab.length; i++) {
+            tablica[i] = a * tab[i] + b;
         }
         return tablica;
     }
 
-    public static void sredniaHarmoniczna(int[]tab){
-        double sumaOdwrotnosci=sumaOdwrotnosci(tab);
-        double ile=ileDodatnich(tab);
-        double sredniaHarmoniczna=ile/sumaOdwrotnosci;
+    public static void sredniaHarmoniczna(int[] tab) {
+        double sumaOdwrotnosci = sumaOdwrotnosci(tab);
+        double ile = ileDodatnich(tab);
+        double sredniaHarmoniczna = ile / sumaOdwrotnosci;
         System.out.println("Srednia harmniczna liczb w tablicy to: " + sredniaHarmoniczna + "\n");
     }
 
     //bedzie dla dodatnich ok?
-    public static void  sredniaGeometryczna(int[]tab){
+    public static void sredniaGeometryczna(int[] tab) {
         System.out.println(Arrays.toString(tab));
         //troche chyba slabo bedzie jak tablica bedzie 1 elementowa
-        double iloczyn=1;
-        double ktoraPotega=0;
+        double iloczyn = 1;
+        double ktoraPotega = 0;
         for (int el : tab) {
-            if(el>0){
-            iloczyn=iloczyn*el;
-            ktoraPotega++;
-        }}
-        double srednia=Math.pow(iloczyn,1/ktoraPotega);
+            if (el > 0) {
+                iloczyn = iloczyn * el;
+                ktoraPotega++;
+            }
+        }
+        double srednia = Math.pow(iloczyn, 1 / ktoraPotega);
         System.out.println("Srednia geomatryczna liczb w tablicy to: " + srednia + "\n");
     }
 
-public static void sredniaArytmetyczna(int[]tab){
-    System.out.println(Arrays.toString(tab));
-    double suma=0;
-    for (int el : tab) {
-        suma+=el;
+    public static void sredniaArytmetyczna(int[] tab) {
+        System.out.println(Arrays.toString(tab));
+        double suma = 0;
+        for (int el : tab) {
+            suma += el;
+        }
+        double srednia = suma / tab.length;
+        System.out.println("Srednia liczb w tablicy to: " + srednia + "\n");
     }
-    double srednia=suma/tab.length;
-    System.out.println("Srednia liczb w tablicy to: " + srednia + "\n");
-}
 
     public static double sumaOdwrotnosci(int[] tab) {
         System.out.println(Arrays.toString(tab));
