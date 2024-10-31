@@ -1,3 +1,4 @@
+import java.io.Console;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -6,6 +7,7 @@ public class zestaw4 {
         int[] tab = {1, 2, 3};
         //wypiszTablice(tab, 2, 3);
         int[] tablica = generujTablice(5, 1, 3);
+        System.out.println(Arrays.toString(tablica));
 //        ileNieparzystych(tablica);
 //        ileParzystych(tablica);
 //        ileDodatnich(tablica);
@@ -22,10 +24,44 @@ public class zestaw4 {
         //sredniaGeometryczna(tablica);
        //sredniaHarmoniczna(tablica);
 
-//        funkcjaLiniowa(tab, a, b) //ax+b
-//        funkcjaKwadratowa(tab, a, b, c) //ax^2+bx+c
-//        funkcjaWykladnicza(tab, a) //a^x
+        System.out.println(Arrays.toString(funkcjaLiniowa(tablica, 2, 3)));
+        System.out.println(Arrays.toString(funkcjaKwadratowa(tablica, 2, 3,4)));
+        System.out.println(Arrays.toString(funkcjaWykladnicza(tablica, 2)));
+
 //        funkcjaSignum(tab)
+    }
+    public static int[] funkcjaSignum(int[]tab){
+        int[] tablica = tab.clone();
+        for(int i=0;i< tab.length;i++){;
+            if(tablica[i]>0)tablica[i]=1;
+            if(tablica[i]==0)tablica[i]=0;
+            if(tablica[i]<0)tablica[i]=-1;
+        }
+        return tablica;
+    }
+
+    public static double[] funkcjaWykladnicza(int[]tab,double a){
+        double[]tablica=new double[tab.length];
+        for(int i=0;i< tab.length;i++){
+            tablica[i]=Math.pow(a,tab[i]);
+        }
+        return tablica;
+    }
+
+    public static double[] funkcjaKwadratowa(int[]tab,double a,double b,double c){
+        double[]tablica=new double[tab.length];
+        for(int i=0;i< tab.length;i++){
+            tablica[i]=Math.pow(a*tab[i],2)+b*tab[i]+c;
+        }
+        return tablica;
+    }
+
+    public static double[] funkcjaLiniowa(int[]tab,double a,double b){
+        double[]tablica=new double[tab.length];
+        for(int i=0;i< tab.length;i++){
+        tablica[i]=a*tab[i]+b;
+        }
+        return tablica;
     }
 
     public static void sredniaHarmoniczna(int[]tab){
