@@ -1,0 +1,45 @@
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class zestaw5 {
+    public static void main(String[] args) {
+
+        ArrayList<Integer> tablicaIntow = new ArrayList<Integer>();
+        tablicaIntow.add(1);
+        tablicaIntow.add(4);
+        tablicaIntow.add(5);
+        tablicaIntow.add(5);
+        tablicaIntow.add(8);
+        tablicaIntow.add(7);
+
+        uniqueArrayList(tablicaIntow);
+        toArrayList("koteczek");
+    }
+public static void toArrayList(String napis){
+    ArrayList<Character> tablicacharow=new ArrayList<>();
+        for (int i=0;i<napis.length();i++) {
+            tablicacharow.add(napis.charAt(i));
+    }
+    Collections.sort(tablicacharow);
+    for(int i = 0; i < i.size(); i++) {
+        System.out.print(i.get(i));
+    }
+}
+    public static void uniqueArrayList(ArrayList<Integer>tablicaIntow){
+            HashSet<Integer> uniaklnyZbior = new HashSet<Integer>(tablicaIntow);
+            for (Integer el : uniaklnyZbior) {
+                System.out.println(el);
+            }
+            ArrayList<Integer> listatablicowaUnikalnychIntow=new ArrayList<>(uniaklnyZbior);
+
+            ArrayList<ArrayList> tablicatablic = new ArrayList<>();
+            for (int i = 0;i<listatablicowaUnikalnychIntow.size();i++ ) {
+                ArrayList<Integer> pary=new ArrayList<>();
+                pary.add(listatablicowaUnikalnychIntow.get(i));
+                pary.add(0);
+                tablicatablic.add(pary);
+            }
+            for(int i = 0; i < tablicatablic.size(); i++) {
+                System.out.print(tablicatablic.get(i));
+            }
+        }
