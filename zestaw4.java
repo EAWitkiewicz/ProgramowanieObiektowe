@@ -35,6 +35,19 @@ public class zestaw4 {
 //        najdluzszyCiagUjemnych(tablica);
  //       odwrocTablice(tablica);
  //       odwrocTablice(tablica, 2, 7);
+
+        System.out.println(Arrays.toString(generujZakres(10,1,2)));
+    }
+
+    public static double[] generujZakres(int n, int minWartosc, int maxWartosc) {
+        double[] zakres = new double[n];
+        //inicjalizacja liczb lososwych
+        double ileOdstepów=n-1;
+        double odstep=(maxWartosc-minWartosc)/ileOdstepów;
+        for (int i = 0; i < n; i++) {
+            zakres[i]=minWartosc+(odstep*i);
+        }
+        return zakres;
     }
 
     public static void odwrocTablice(int[]tab,int indexStart,int indexStop){
@@ -64,9 +77,6 @@ public class zestaw4 {
         System.out.println(Arrays.toString(tablicaOdwrocona));
         }
 
-
-
-
     public static void odwrocTablice(int[]tab){
         int[]tablicaOdwrocona=new int[tab.length];
         for(int i= tab.length-1, j=0;i>=0 && j<=tab.length;i--,j++){
@@ -76,22 +86,35 @@ public class zestaw4 {
     }
 
     public static void najdluzszyCiagUjemnych(int[]tab){
+        // Zmienna `najdluzszyCiag` przechowuje długość najdłuższego ciągu liczb ujemnych
         int najdluzszyCiag = 0;
+        // Zmienna `ciagSprawdzany` śledzi aktualnie sprawdzany ciąg liczb ujemnych
         int ciagSprawdzany = 0;
+        // `poczatekCiagu` i `koniecCiagu` zapisują indeksy początku i końca najdłuższego ciągu liczb ujemnych
         int poczatekCiagu = 0;
         int koniecCiagu = 0;
+        // `aktualnyPoczatek` przechowuje początkowy indeks aktualnie sprawdzanego ciągu ujemnego
         int aktualnyPoczatek = 0;
 
         for (int i = 0; i < tab.length; i++) {
+            // Sprawdzamy, czy aktualny element jest ujemny
             if (tab[i] < 0) {
+                // Jeśli jest ujemny, zwiększamy licznik `ciagSprawdzany`
                 ciagSprawdzany++;
-                if (ciagSprawdzany == 1) aktualnyPoczatek = i;  // Zapisz początek nowego dodatniego ciągu
+
+                // Jeżeli jest to początek nowego ciągu (pierwsza ujemna liczba po liczbie nieujemnej),
+                // zapisujemy jego początkowy indeks
+                if (ciagSprawdzany == 1) aktualnyPoczatek = i;  // Zapisz początek nowego ujemnego ciągu
+                // Jeśli aktualny ciąg jest dłuższy niż poprzednio znaleziony najdłuższy ciąg
                 if (ciagSprawdzany > najdluzszyCiag) {
+                    // Uaktualniamy `najdluzszyCiag` do aktualnej długości
                     najdluzszyCiag = ciagSprawdzany;
+                    // Zapisujemy początek i koniec aktualnie najdłuższego ciągu
                     poczatekCiagu = aktualnyPoczatek;
                     koniecCiagu = i;
                 }
             } else {
+                // Jeśli liczba nie jest ujemna, resetujemy `ciagSprawdzany` do 0
                 ciagSprawdzany = 0;
             }
         }
@@ -111,26 +134,37 @@ public class zestaw4 {
         int indexkoncowy=0;
         for (int i = 0; i < tab.length; i++) {
             if (tab[i] > 0) {
+                // Jeżeli znajdziemy liczbę dodatnią, uruchamiamy wewnętrzną pętlę, aby znaleźć koniec ciągu dodatnich liczb
                 for (int j = i;j<tab.length ; j++) {
+                    // Jeśli `tab[j]` jest dodatnia, zwiększamy `ciagSprawdzany`
                     if (tab[j] > 0) {
                         ciagSprawdzany++;
                     } else {
+                        // Gdy napotkamy liczbę niedodatnią, przerywamy wewnętrzną pętlę
                         break;
                     }
                 }
+                // Przesuwamy indeks `i` o długość `ciagSprawdzany`, aby pominąć sprawdzony ciąg dodatni
                 i=i+ciagSprawdzany;
+                // Jeśli aktualny ciąg jest dłuższy niż poprzednio znaleziony najdłuższy ciąg
                 if (ciagSprawdzany > najdluszyszCiag) {
+                    // Aktualizujemy długość najdłuższego ciągu dodatnich
                     najdluszyszCiag = ciagSprawdzany;
+                    // Zapisujemy indeks końcowy aktualnie najdłuższego ciągu
                     indexkoncowy=i-1;
                 }
+                // Resetujemy `ciagSprawdzany` do 0 przed sprawdzeniem kolejnego ciągu
                 ciagSprawdzany = 0;
             }
         }
         System.out.println("Długość najdłuższego ciągu dodatniego to: "+najdluszyszCiag);
+        // Obliczenie indeksu początkowego najdłuższego ciągu dodatnich
         int indexpoczatkowy=indexkoncowy-najdluszyszCiag+1;
         System.out.print("Najdluzszy ciag dodatnich to: ");
+        // Wyświetlenie elementów najdłuższego ciągu dodatnich liczb
         for (int i = indexpoczatkowy; i < tab.length; i++) {
             if(tab[i]<=0) break;
+            // Przerywamy pętlę, jeśli napotkamy liczbę niedodatnią
             System.out.print(tab[i]+" ");
         }
     }

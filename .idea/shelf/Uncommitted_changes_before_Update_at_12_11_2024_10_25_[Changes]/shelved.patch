@@ -1,0 +1,314 @@
+Index: zestaw4.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.io.Console;\r\nimport java.util.Arrays;\r\nimport java.util.Collection;\r\nimport java.util.Collections;\r\nimport java.util.Random;\r\n\r\npublic class zestaw4 {\r\n    public static void main(String[] args) {\r\n        int[] tab = {1, 2, 3};\r\n        //wypiszTablice(tab, 2, 3);\r\n        int[] tablica = generujTablice(8, 1, 9);\r\n        System.out.println(Arrays.toString(tablica));\r\n//        ileNieparzystych(tablica);\r\n//        ileParzystych(tablica);\r\n//        ileDodatnich(tablica);\r\n//        ileUjemnych(tablica);\r\n//        ileZerowych(tablica);\r\n        // ileMaxymalnych(tablica);\r\n        //ileMinimalnych(tablica);\r\n        //ileUnikalnych(tablica);\r\n\r\n        //sumaDodatnich(tablica);\r\n        //sumaUjemnych(tablica);\r\n        //sumaOdwrotnosci(tablica);\r\n        //sredniaArytmetyczna(tablica);\r\n        //sredniaGeometryczna(tablica);\r\n        //sredniaHarmoniczna(tablica);\r\n\r\n//        System.out.println(Arrays.toString(funkcjaLiniowa(tablica, 2, 3)));\r\n//        System.out.println(Arrays.toString(funkcjaKwadratowa(tablica, 2, 3,4)));\r\n//        System.out.println(Arrays.toString(funkcjaWykladnicza(tablica, 2)));\r\n//        System.out.println(Arrays.toString(funkcjaSignum(tablica)));\r\n\r\n//        najdluzszyCiagDodatnich(tablica);\r\n//        najdluzszyCiagUjemnych(tablica);\r\n //       odwrocTablice(tablica);\r\n //       odwrocTablice(tablica, 2, 7);\r\n    }\r\n\r\n    public static void odwrocTablice(int[]tab,int indexStart,int indexStop){\r\n        /** tak mozna bylo zrobic i bylby opytmalniej\r\n        int[] tablicaOdwrocona = Arrays.copyOf(tab, tab.length); // Kopia oryginalnej tablicy\r\n        int j = indexStop;  // Używamy `j` do iteracji od końca podtablicy\r\n        // Pętla od `indexStart` do `indexStop` włącza odwrócenie wybranego zakresu\r\n        for (int i = indexStart; i <= indexStop; i++) {\r\n            tablicaOdwrocona[i] = tab[j];\r\n            j--;\r\n        }*/\r\n\r\n        int[]tablicaOdwrocona=new int[tab.length];\r\n        int j=indexStop;\r\n        for(int i=0;i<tab.length;i++){\r\n            //tablicaOdwrocona[i]=tab[i];\r\n            if(i==indexStart){\r\n                while(j>=indexStart){\r\n                    tablicaOdwrocona[i]=tab[j];\r\n                    i++;\r\n                    j--;\r\n                }\r\n                i--;\r\n            }\r\n            else tablicaOdwrocona[i]=tab[i];\r\n        }\r\n        System.out.println(Arrays.toString(tablicaOdwrocona));\r\n        }\r\n\r\n\r\n\r\n\r\n    public static void odwrocTablice(int[]tab){\r\n        int[]tablicaOdwrocona=new int[tab.length];\r\n        for(int i= tab.length-1, j=0;i>=0 && j<=tab.length;i--,j++){\r\n            tablicaOdwrocona[j]=tab[i];\r\n        }\r\n        System.out.println(Arrays.toString(tablicaOdwrocona));\r\n    }\r\n\r\n    public static void najdluzszyCiagUjemnych(int[]tab){\r\n        int najdluzszyCiag = 0;\r\n        int ciagSprawdzany = 0;\r\n        int poczatekCiagu = 0;\r\n        int koniecCiagu = 0;\r\n        int aktualnyPoczatek = 0;\r\n\r\n        for (int i = 0; i < tab.length; i++) {\r\n            if (tab[i] < 0) {\r\n                ciagSprawdzany++;\r\n                if (ciagSprawdzany == 1) aktualnyPoczatek = i;  // Zapisz początek nowego dodatniego ciągu\r\n                if (ciagSprawdzany > najdluzszyCiag) {\r\n                    najdluzszyCiag = ciagSprawdzany;\r\n                    poczatekCiagu = aktualnyPoczatek;\r\n                    koniecCiagu = i;\r\n                }\r\n            } else {\r\n                ciagSprawdzany = 0;\r\n            }\r\n        }\r\n\r\n        System.out.println(\"Długość najdłuższego ciągu liczb ujemnych to: \" + najdluzszyCiag);\r\n        System.out.print(\"Najdłuższy ciąg ujemnych to: \");\r\n        for (int i = poczatekCiagu; i <= koniecCiagu; i++) {\r\n            System.out.print(tab[i] + \" \");\r\n        }\r\n    }\r\n\r\n    //tu jest po mojemu czyli słabo i niepotymalnie. Wrzucilam to w chat do sprawdzenia\r\n    //i wyrzcuił optymalniej i ładniej wiec na wzór  tego z chatu zrobie dla ujemnych\r\n    public static void najdluzszyCiagDodatnich(int[] tab) {\r\n        int najdluszyszCiag = 0;\r\n        int ciagSprawdzany = 0;\r\n        int indexkoncowy=0;\r\n        for (int i = 0; i < tab.length; i++) {\r\n            if (tab[i] > 0) {\r\n                for (int j = i;j<tab.length ; j++) {\r\n                    if (tab[j] > 0) {\r\n                        ciagSprawdzany++;\r\n                    } else {\r\n                        break;\r\n                    }\r\n                }\r\n                i=i+ciagSprawdzany;\r\n                if (ciagSprawdzany > najdluszyszCiag) {\r\n                    najdluszyszCiag = ciagSprawdzany;\r\n                    indexkoncowy=i-1;\r\n                }\r\n                ciagSprawdzany = 0;\r\n            }\r\n        }\r\n        System.out.println(\"Długość najdłuższego ciągu dodatniego to: \"+najdluszyszCiag);\r\n        int indexpoczatkowy=indexkoncowy-najdluszyszCiag+1;\r\n        System.out.print(\"Najdluzszy ciag dodatnich to: \");\r\n        for (int i = indexpoczatkowy; i < tab.length; i++) {\r\n            if(tab[i]<=0) break;\r\n            System.out.print(tab[i]+\" \");\r\n        }\r\n    }\r\n\r\n    public static int[] funkcjaSignum(int[] tab) {\r\n        int[] tablica = tab.clone();\r\n        for (int i = 0; i < tab.length; i++) {\r\n            ;\r\n            if (tablica[i] > 0) tablica[i] = 1;\r\n            if (tablica[i] == 0) tablica[i] = 0;\r\n            if (tablica[i] < 0) tablica[i] = -1;\r\n        }\r\n        return tablica;\r\n    }\r\n\r\n    public static double[] funkcjaWykladnicza(int[] tab, double a) {\r\n        double[] tablica = new double[tab.length];\r\n        for (int i = 0; i < tab.length; i++) {\r\n            tablica[i] = Math.pow(a, tab[i]);\r\n        }\r\n        return tablica;\r\n    }\r\n\r\n    public static double[] funkcjaKwadratowa(int[] tab, double a, double b, double c) {\r\n        double[] tablica = new double[tab.length];\r\n        for (int i = 0; i < tab.length; i++) {\r\n            tablica[i] = Math.pow(a * tab[i], 2) + b * tab[i] + c;\r\n        }\r\n        return tablica;\r\n    }\r\n\r\n    public static double[] funkcjaLiniowa(int[] tab, double a, double b) {\r\n        double[] tablica = new double[tab.length];\r\n        for (int i = 0; i < tab.length; i++) {\r\n            tablica[i] = a * tab[i] + b;\r\n        }\r\n        return tablica;\r\n    }\r\n\r\n    public static void sredniaHarmoniczna(int[] tab) {\r\n        double sumaOdwrotnosci = sumaOdwrotnosci(tab);\r\n        double ile = ileDodatnich(tab);\r\n        double sredniaHarmoniczna = ile / sumaOdwrotnosci;\r\n        System.out.println(\"Srednia harmniczna liczb w tablicy to: \" + sredniaHarmoniczna + \"\\n\");\r\n    }\r\n\r\n    //bedzie dla dodatnich ok?\r\n    public static void sredniaGeometryczna(int[] tab) {\r\n        System.out.println(Arrays.toString(tab));\r\n        //troche chyba slabo bedzie jak tablica bedzie 1 elementowa\r\n        double iloczyn = 1;\r\n        double ktoraPotega = 0;\r\n        for (int el : tab) {\r\n            if (el > 0) {\r\n                iloczyn = iloczyn * el;\r\n                ktoraPotega++;\r\n            }\r\n        }\r\n        double srednia = Math.pow(iloczyn, 1 / ktoraPotega);\r\n        System.out.println(\"Srednia geomatryczna liczb w tablicy to: \" + srednia + \"\\n\");\r\n    }\r\n\r\n    public static void sredniaArytmetyczna(int[] tab) {\r\n        System.out.println(Arrays.toString(tab));\r\n        double suma = 0;\r\n        for (int el : tab) {\r\n            suma += el;\r\n        }\r\n        double srednia = suma / tab.length;\r\n        System.out.println(\"Srednia liczb w tablicy to: \" + srednia + \"\\n\");\r\n    }\r\n\r\n    public static double sumaOdwrotnosci(int[] tab) {\r\n        System.out.println(Arrays.toString(tab));\r\n        double suma = 0;\r\n        for (double el : tab) {\r\n            if (el == 0) {\r\n                double odwrotnosc = 0;\r\n                suma += odwrotnosc;\r\n            } else {\r\n                double odwrotnosc = 1 / el;\r\n                suma += odwrotnosc;\r\n            }\r\n        }\r\n        return suma;\r\n    }\r\n\r\n    public static void sumaUjemnych(int[] tab) {\r\n        System.out.println(Arrays.toString(tab));\r\n        int suma = 0;\r\n        for (int el : tab) {\r\n            if (el < 0) suma = suma + el;\r\n        }\r\n        System.out.println(\"Suma liczb ujemnych: \" + suma + \"\\n\");\r\n    }\r\n\r\n    public static void sumaDodatnich(int[] tab) {\r\n        System.out.println(Arrays.toString(tab));\r\n        int suma = 0;\r\n        for (int el : tab) {\r\n            if (el > 0) suma = suma + el;\r\n        }\r\n        System.out.println(\"Suma liczb dodatnich: \" + suma + \"\\n\");\r\n    }\r\n\r\n    public static void ileUnikalnych(int[] tab) {\r\n        System.out.println(Arrays.toString(tab));\r\n        //zanjdowanie max i min aby wiedziec jaki zakres bedzie miec tablica\r\n        int min = znajdzMinimum(tab);\r\n        int max = znajdzMaximum(tab);\r\n        //zaminna na wielkosc tej tablicy\r\n        int ileMiejscaNaTablice = 0;\r\n        //znajodwanie wielkosci/zakresu indexow w tablicy\r\n        for (int i = min; i <= max; i++) {\r\n            ileMiejscaNaTablice++;\r\n        }\r\n        int[] tablicaLicznikow = new int[ileMiejscaNaTablice];\r\n\r\n        for (int i = 0; i < tablicaLicznikow.length; i++) {\r\n            tablicaLicznikow[i] = 0;\r\n            for (int j = 0; j < tab.length; j++) {\r\n                if (tab[j] == i - Math.abs(min)) {\r\n                    tablicaLicznikow[i]++;\r\n                    System.out.println(Arrays.toString(tablicaLicznikow));\r\n                    System.out.println(\"\\n\");\r\n                }\r\n            }\r\n        }\r\n        System.out.println(Arrays.toString(tablicaLicznikow));\r\n        System.out.println(Arrays.toString(tab));\r\n        int ileUnikalnych = 0;\r\n        for (int i = 0; i < tablicaLicznikow.length; i++) {\r\n            if (tablicaLicznikow[i] == 1) {\r\n                ileUnikalnych++;\r\n            }\r\n        }\r\n        System.out.println(\"W tablicy:\\n\" + Arrays.toString(tab) + \"\\nLiczba liczb unikalnych to:  \" + ileUnikalnych + \"\\n\");\r\n    }\r\n\r\n    public static int znajdzMinimum(int[] tab) {\r\n        int min = tab[0];\r\n        for (int i = 1; i < tab.length; i++) {\r\n            if (tab[i] < min) {\r\n                min = tab[i];\r\n            }\r\n        }\r\n        return min;\r\n    }\r\n\r\n    public static int znajdzMaximum(int[] tab) {\r\n        int max = tab[0];\r\n        for (int i = 1; i < tab.length; i++) {\r\n            if (tab[i] > max) {\r\n                max = tab[i];\r\n            }\r\n        }\r\n        return max;\r\n    }\r\n\r\n    public static void ileMinimalnych(int[] tab) {\r\n        int ileMin = 0;\r\n        int min = tab[0];\r\n        for (int el : tab) {\r\n            if (el < min) {\r\n                min = el;\r\n            }\r\n        }\r\n        for (int el : tab) {\r\n            if (el == min) ileMin++;\r\n        }\r\n        System.out.println(\"W tablicy:\\n\" + Arrays.toString(tab) + \"\\nLiczba liczb minimalnych to:  \" + ileMin + \"\\n\");\r\n    }\r\n\r\n    public static void ileMaxymalnych(int[] tab) {\r\n        int ileMax = 0;\r\n        int max = tab[0];\r\n        for (int el : tab) {\r\n            if (el > max) {\r\n                max = el;\r\n            }\r\n        }\r\n        for (int el : tab) {\r\n            if (el == max) ileMax++;\r\n        }\r\n        System.out.println(\"W tablicy:\\n\" + Arrays.toString(tab) + \"\\nLiczba liczb maxymalnych to:  \" + ileMax + \"\\n\");\r\n    }\r\n\r\n    public static void ileZerowych(int[] tab) {\r\n        int ileZer = 0;\r\n        for (int el : tab) {\r\n            if (el == 0) ileZer++;\r\n        }\r\n        System.out.println(\"W tablicy:\\n\" + Arrays.toString(tab) + \"\\nLiczba zer to:  \" + ileZer + \"\\n\");\r\n    }\r\n\r\n    public static void ileUjemnych(int[] tab) {\r\n        int ileUjemnych = 0;\r\n        for (int el : tab) {\r\n            if (el < 0) ileUjemnych++;\r\n        }\r\n        System.out.println(\"W tablicy:\\n\" + Arrays.toString(tab) + \"\\nLiczba ujemnych liczb to:  \" + ileUjemnych + \"\\n\");\r\n    }\r\n\r\n    public static int ileDodatnich(int[] tab) {\r\n        int ileDodatnich = 0;\r\n        for (int el : tab) {\r\n            if (el > 0) ileDodatnich++;\r\n        }\r\n        return ileDodatnich;\r\n    }\r\n\r\n    public static void ileParzystych(int[] tab) {\r\n        int ileParzystych = 0;\r\n        for (int el : tab) {\r\n            if (el % 2 == 0) ileParzystych++;\r\n        }\r\n        System.out.println(\"W tablicy:\\n\" + Arrays.toString(tab) + \"\\nLiczba parzystych liczb to:  \" + ileParzystych + \"\\n\");\r\n    }\r\n\r\n    public static void ileNieparzystych(int[] tab) {\r\n        int ileNieparzystych = 0;\r\n        for (int el : tab) {\r\n            if (el % 2 != 0) ileNieparzystych++;\r\n        }\r\n        System.out.println(\"W tablicy:\\n\" + Arrays.toString(tab) + \"\\nLiczba nieparzystych liczb to:  \" + ileNieparzystych + \"\\n\");\r\n\r\n    }\r\n\r\n    public static void wypiszTablice(int[] tab, int n, int m) {\r\n        int[][] macierz = new int[n][m];\r\n        int i = 0, j = 0, k = 0;\r\n        while (i < n) {\r\n            while (j < m) {\r\n                if (k < tab.length) {\r\n                    macierz[i][j] = tab[k];\r\n                    j++;\r\n                    k++;\r\n                } else {\r\n                    macierz[i][j] = 0;\r\n                    j++;\r\n                }\r\n            }\r\n            j = 0;\r\n            i++;\r\n        }\r\n        for (int[] row : macierz) {\r\n            for (int el : row) {\r\n                System.out.print(String.format(\"%4d\", el));\r\n            }\r\n        }\r\n        //Arrays.deepToString(macierz)-wypisze wielowymiaraw tablice ciagiem\r\n        //Arrays.toString wypisuje jednowymiareowe tablice\r\n    }\r\n\r\n    public static int[] generujTablice(int n, int minWartosc, int maxWartosc) {\r\n        int[] tablica = new int[n];\r\n        //inicjalizacja liczb lososwych\r\n        Random random = new Random();\r\n\r\n        for (int i = 0; i < tablica.length; i++) {\r\n            /**generowanie liczby z zakresu\r\n             //random generuej liczby od 0 do podanej wyłacznie daltego najpier okreslamy:\r\n             //max-min jako liczba elementow w przedziale\r\n             //+1 aby przedział byl <= a nie <\r\n             //+min wartosc aby przedzial sie przesunąl*/\r\n            int kolejneLiczbyLosowe = random.nextInt(maxWartosc - minWartosc + 1) + minWartosc;\r\n            tablica[i] = kolejneLiczbyLosowe;\r\n        }\r\n        return tablica;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/zestaw4.java b/zestaw4.java
+--- a/zestaw4.java	(revision 477a2b347c65587dacbe54fbede45665dd975f24)
++++ b/zestaw4.java	(date 1730393782388)
+@@ -35,6 +35,19 @@
+ //        najdluzszyCiagUjemnych(tablica);
+  //       odwrocTablice(tablica);
+  //       odwrocTablice(tablica, 2, 7);
++
++        System.out.println(Arrays.toString(generujZakres(10,1,2)));
++    }
++
++    public static double[] generujZakres(int n, int minWartosc, int maxWartosc) {
++        double[] zakres = new double[n];
++        //inicjalizacja liczb lososwych
++        double ileOdstepów=n-1;
++        double odstep=(maxWartosc-minWartosc)/ileOdstepów;
++        for (int i = 0; i < n; i++) {
++            zakres[i]=minWartosc+(odstep*i);
++        }
++        return zakres;
+     }
+ 
+     public static void odwrocTablice(int[]tab,int indexStart,int indexStop){
+@@ -64,9 +77,6 @@
+         System.out.println(Arrays.toString(tablicaOdwrocona));
+         }
+ 
+-
+-
+-
+     public static void odwrocTablice(int[]tab){
+         int[]tablicaOdwrocona=new int[tab.length];
+         for(int i= tab.length-1, j=0;i>=0 && j<=tab.length;i--,j++){
+Index: zestaw5.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/zestaw5.java b/zestaw5.java
+new file mode 100644
+--- /dev/null	(date 1730720909570)
++++ b/zestaw5.java	(date 1730720909570)
+@@ -0,0 +1,86 @@
++import java.util.ArrayList;
++import java.util.Collections;
++
++public class zestaw5 {
++    public static void main(String[] args) {
++
++        System.out.println("Zadanie 1");
++        ArrayList<Integer> tablica1=new ArrayList<>();
++        tablica1.add(1);
++        tablica1.add(2);
++        tablica1.add(3);
++        tablica1.add(4);
++        ArrayList<Integer> tablica2=new ArrayList<>();
++        tablica2.add(2137);
++        tablica2.add(420);
++        tablica2.add(143);
++        tablica2.add(69);
++        tablica2.add(47);
++        tablica2.add(2115);
++
++
++        System.out.println(append(tablica1, tablica2));
++        System.out.println("Zadanie 2");
++        merge(tablica1, tablica2);
++        System.out.println(mergeSorted(tablica1, tablica2));
++    }
++    public static ArrayList<Integer> append(ArrayList<Integer> tab1, ArrayList<Integer> tab2){
++        ArrayList<Integer> tab3 = new ArrayList<>(tab1);
++        tab3.addAll(tab2);
++         return tab3;
++    }
++
++    public static void merge(ArrayList<Integer> tab1, ArrayList<Integer> tab2){
++        /*
++        ArrayList<Integer> tab3 = new ArrayList<>(Collections.nCopies(tab1.size()+tab2.size(),0));
++        int i=0,j=0,k=0;
++        System.out.println(tab3);
++        for (;i< tab3.size(); i++) {
++            if(i%2==0) {
++                tab3.set(i, tab2.get(j));
++                j++;
++                if(j==tab2.size()) break;
++            }else{
++                tab3.set(i, tab1.get(k));
++                k++;
++                if(k==tab1.size()) break;
++            }
++        }
++
++         if(tab1.size()>tab2.size()){
++             for(int e=tab1.size()+2;e<tab3.size();e++){
++                 tab3.set(e,tab1.get(j));
++                 k++;
++             }
++        }else if(tab1.size()<tab2.size()){
++             for(int e=tab2.size()+2;e<tab3.size();e++){
++                 tab3.set(e,tab2.get(j));
++                 j++;
++             }
++        }
++        System.out.println(tab3);*/
++
++            ArrayList<Integer> tab3 = new ArrayList<>(); // Tworzymy nową listę wynikową
++            int i = 0;
++
++            // Dodajemy elementy przemiennie, aż skończy się jedna z list
++            while (i < tab1.size() || i < tab2.size()) {
++                //ify wykonuja sie oba po kolei a potem tylko ten dla dl tablicy
++                if (i < tab1.size()) {
++                    tab3.add(tab1.get(i));
++                }
++                if (i < tab2.size()) {
++                    tab3.add(tab2.get(i));
++                }
++                i++;
++            }
++
++            System.out.println(tab3);
++    }
++
++    public static ArrayList<Integer> mergeSorted(ArrayList<Integer> tab1, ArrayList<Integer> tab2){
++        ArrayList<Integer> tab3 = append(tab1, tab2);
++        Collections.sort(tab3);
++        return tab3;
++    }
++}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05\" name=\"Changes\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\"><![CDATA[{\r\n  \"associatedIndex\": 5\r\n}]]></component>\r\n  <component name=\"ProjectId\" id=\"2o6c6HyesOmTiL6nHSnGpjYVvyU\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.zestaw3.executor\": \"Run\",\r\n    \"Application.zestaw4.executor\": \"Run\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05\" name=\"Changes\" comment=\"\" />\r\n      <created>1730193288768</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1730193288768</updated>\r\n      <workItem from=\"1730193289874\" duration=\"4732000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/zestaw4.java</url>\r\n          <line>12</line>\r\n          <option name=\"timeStamp\" value=\"6\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/zestaw4.java</url>\r\n          <line>13</line>\r\n          <option name=\"timeStamp\" value=\"7\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/zestaw4.java</url>\r\n          <line>15</line>\r\n          <option name=\"timeStamp\" value=\"8\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/zestaw4.java</url>\r\n          <line>11</line>\r\n          <option name=\"timeStamp\" value=\"11\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/zestaw4.java</url>\r\n          <line>16</line>\r\n          <option name=\"timeStamp\" value=\"12\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/zestaw4.java</url>\r\n          <line>24</line>\r\n          <option name=\"timeStamp\" value=\"14\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 477a2b347c65587dacbe54fbede45665dd975f24)
++++ b/.idea/workspace.xml	(date 1731403546448)
+@@ -4,7 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05" name="Changes" comment="" />
++    <list default="true" id="d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/zestaw5.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/ProgramowanieObiektowe/zestaw4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProgramowanieObiektowe/zestaw4.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/zestaw4.java" beforeDir="false" afterPath="$PROJECT_DIR$/zestaw4.java" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -20,25 +25,30 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="ProjectColorInfo"><![CDATA[{
+-  "associatedIndex": 5
+-}]]></component>
++  <component name="ProjectColorInfo">{
++  &quot;associatedIndex&quot;: 5
++}</component>
+   <component name="ProjectId" id="2o6c6HyesOmTiL6nHSnGpjYVvyU" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Application.zestaw3.executor": "Run",
+-    "Application.zestaw4.executor": "Run",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Application.zestaw3.executor&quot;: &quot;Run&quot;,
++    &quot;Application.zestaw4.executor&quot;: &quot;Run&quot;,
++    &quot;Application.zestaw5.executor&quot;: &quot;Run&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+@@ -55,7 +65,13 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1730193288768</updated>
+-      <workItem from="1730193289874" duration="4732000" />
++      <workItem from="1730193289874" duration="14769000" />
++      <workItem from="1730305486545" duration="4963000" />
++      <workItem from="1730358497538" duration="2508000" />
++      <workItem from="1730376845022" duration="15929000" />
++      <workItem from="1730714535524" duration="6435000" />
++      <workItem from="1731133778052" duration="177000" />
++      <workItem from="1731403080278" duration="462000" />
+     </task>
+     <servers />
+   </component>
+@@ -67,33 +83,83 @@
+       <breakpoints>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/zestaw4.java</url>
+-          <line>12</line>
+-          <option name="timeStamp" value="6" />
++          <line>216</line>
++          <option name="timeStamp" value="1" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/zestaw4.java</url>
++          <line>217</line>
++          <option name="timeStamp" value="2" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/zestaw4.java</url>
++          <line>222</line>
++          <option name="timeStamp" value="4" />
+         </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/zestaw4.java</url>
+-          <line>13</line>
+-          <option name="timeStamp" value="7" />
++          <line>42</line>
++          <option name="timeStamp" value="39" />
+         </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/zestaw4.java</url>
+-          <line>15</line>
+-          <option name="timeStamp" value="8" />
++          <line>44</line>
++          <option name="timeStamp" value="40" />
+         </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/zestaw4.java</url>
+-          <line>11</line>
+-          <option name="timeStamp" value="11" />
++          <line>45</line>
++          <option name="timeStamp" value="41" />
+         </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/zestaw4.java</url>
+-          <line>16</line>
+-          <option name="timeStamp" value="12" />
++          <line>46</line>
++          <option name="timeStamp" value="42" />
+         </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/zestaw4.java</url>
+-          <line>24</line>
+-          <option name="timeStamp" value="14" />
++          <line>47</line>
++          <option name="timeStamp" value="43" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/zestaw5.java</url>
++          <line>37</line>
++          <option name="timeStamp" value="44" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/zestaw5.java</url>
++          <line>38</line>
++          <option name="timeStamp" value="54" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/zestaw5.java</url>
++          <line>39</line>
++          <option name="timeStamp" value="55" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/zestaw5.java</url>
++          <line>36</line>
++          <option name="timeStamp" value="56" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/zestaw5.java</url>
++          <line>35</line>
++          <option name="timeStamp" value="57" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/zestaw5.java</url>
++          <line>44</line>
++          <option name="timeStamp" value="58" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/zestaw5.java</url>
++          <line>43</line>
++          <option name="timeStamp" value="59" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/zestaw5.java</url>
++          <line>45</line>
++          <option name="timeStamp" value="60" />
+         </line-breakpoint>
+       </breakpoints>
+     </breakpoint-manager>

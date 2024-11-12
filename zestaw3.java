@@ -120,19 +120,32 @@ public class zestaw3 {
     }
 
     static boolean czyPalindorm(String wyraz) {
+        // Zmienna licznika, która przechowuje liczbę par znaków, które są takie same pod względem indeksów od początku i końca
         int teSameZnakiPOdIndexem = 0;
+
+        // Sprawdzamy, czy długość słowa jest nieparzysta
         if (wyraz.length() % 2 == 1) {
+            // Pętla przechodzi przez połowę długości słowa plus jeden znak (dla nieparzystych długości)
             for (int i = 0; i < (wyraz.length() / 2) + 1; i++) {
+                // Sprawdzamy, czy znak na pozycji `i` jest taki sam jak znak na pozycji z końca słowa
+                // Jeżeli znaki są takie same, zwiększamy licznik `teSameZnakiPOdIndexem`
                 if (wyraz.charAt(i) == wyraz.charAt((wyraz.length() - 1) - i)) teSameZnakiPOdIndexem++;
+                    // Jeżeli natrafimy na parę znaków, które nie są takie same, zwracamy `false` (nie jest palindromem)
                 else return false;
             }
+            // Po zakończeniu pętli sprawdzamy, czy licznik ma wartość równą połowie długości słowa + 1 (dla nieparzystych długości)
             if (teSameZnakiPOdIndexem == wyraz.length() / 2 + 1) return true;
             else return false;
         } else {
+            // Gdy długość słowa jest parzysta
+            // Pętla przechodzi przez dokładnie połowę długości słowa
             for (int i = 0; i < wyraz.length() / 2; i++) {
+                // Sprawdzamy, czy znak na pozycji `i` jest taki sam jak znak na pozycji z końca słowa
                 if (wyraz.charAt(i) == wyraz.charAt((wyraz.length() - 1) - i)) teSameZnakiPOdIndexem++;
+                    // Jeżeli napotkamy różne znaki, zwracamy `false` (nie jest palindromem)
                 else return false;
             }
+            // Po zakończeniu pętli sprawdzamy, czy licznik ma wartość równą połowie długości słowa (dla parzystych długości)
             if (teSameZnakiPOdIndexem == wyraz.length() / 2) return true;
             else return false;
         }
@@ -140,17 +153,26 @@ public class zestaw3 {
     }
 
     static boolean czyPalindrom(int n) {
+        // Zmienna `suma` będzie przechowywać liczbę budowaną od końca, aby porównać z oryginalną liczbą
         int suma=0;//cyfra od tylu
+// Zmienna `ucinana` przechowuje kopię liczby `n`, która będzie stopniowo "obcinana" (dzielona przez 10)
         int ucinana=n;
+        // `wszystkie_cyfry` przechowuje liczbę cyfr w liczbie `n`, obliczoną przez funkcję `ileCyfr`
         int wszystkie_cyfry=ileCyfr(n);
+        // Pętla przechodzi przez każdą cyfrę liczby `n` od końca, aby złożyć ją w odwrotnej kolejności w zmiennej `suma`
         //-1 bo tak to jest o 1 zero za duzo w potegowaniu
         for(int i=0,j=wszystkie_cyfry-1;j>=0;i++,j--){
             System.out.println(ucinana);
+            // Pobieramy ostatnią cyfrę `ucinana`
             int ostatnia_cyfra=ucinana%10;
+            // Dodajemy cyfrę do `suma` na odpowiedniej pozycji (w miejscu potęgi dziesiątki `j`)
             suma=suma+ostatnia_cyfra*(int)(Math.pow(10,j));
             System.out.println(suma);
+            // Usuwamy ostatnią cyfrę z `ucinana` przez dzielenie przez 10
             ucinana=ucinana/10;
         }
+        // Porównujemy złożoną liczbę `suma` z oryginalną liczbą `n`
+        // Jeśli są równe, liczba jest palindromem i zwracamy `true`, w przeciwnym razie `false`
         if(suma==n) return true;
         else return false;
     }
