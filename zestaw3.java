@@ -33,9 +33,54 @@ public class zestaw3 {
 
         //NWD(1122,867);
         //wczytajTablice();
+        int[]tablica={1,2,3,4,5,6};
+        wypiszPodzbiory(tablica,3);
     }
 
-    //todo podzbiory tabicy mgr Zalewski mowi ze podobne do marge sort wiec wroc tu jak toograniesz (albo te dwa algorytmy z forum nagle zaskoczą)
+
+    /**
+     * Wyjaśnienie działania funkcji:
+     * Funkcja główna wypiszPodzbiory(int[] tab, int n) tworzy tablicę podzbior, która przechowuje bieżący podzbiór.
+     * Następnie wywołuje rekurencyjną funkcję wypiszPodzbioryRekurencyjnie:
+     * indexTab: wskazuje bieżący indeks w tablicy tab.
+     * indexPodzbior: wskazuje bieżący indeks w podzbior.
+     * Rekurencja:
+     * Jeśli indexPodzbior == n, oznacza to, że osiągnęliśmy wymagany rozmiar podzbioru, więc wypisujemy podzbiór i kończymy tę ścieżkę rekurencji.
+     * Jeśli indexTab == tab.length, oznacza to, że przeszliśmy całą tablicę, więc kończymy.
+     * Na każdym kroku rekurencja ma dwie ścieżki:
+     * Dodaje tab[indexTab] do podzbior i wywołuje funkcję rekurencyjnie, aby dodać następny element.
+     * Pomija tab[indexTab] i wywołuje funkcję rekurencyjnie z kolejnym elementem, bez zmiany indexPodzbior.
+     * Ta funkcja wygeneruje wszystkie możliwe podzbiory o długości n w zadanej tablicy tab.
+     */
+    public static void wypiszPodzbiory(int[] tab, int n) {
+        int[] podzbior = new int[n]; // Tablica, która przechowa aktualnie wybrany podzbiór
+        wypiszPodzbioryRekurencyjnie(tab, podzbior, 0, 0, n);
+    }
+
+    // Rekurencyjna funkcja pomocnicza, która generuje podzbiory
+    private static void wypiszPodzbioryRekurencyjnie(int[] tab, int[] podzbior, int indexTab, int indexPodzbior, int n) {
+        // Warunek stopu: gdy osiągniemy długość n podzbioru
+        if (indexPodzbior == n) {
+            // Wypisz aktualny podzbiór
+            for (int i = 0; i < n; i++) {
+                System.out.print(podzbior[i] + " ");
+            }
+            System.out.println();
+            return;
+        }
+
+        // Warunek końca: jeśli przeszliśmy przez całą tablicę
+        if (indexTab == tab.length) {
+            return;
+        }
+
+        // Wybierz aktualny element `tab[indexTab]` do podzbioru
+        podzbior[indexPodzbior] = tab[indexTab];
+        wypiszPodzbioryRekurencyjnie(tab, podzbior, indexTab + 1, indexPodzbior + 1, n);
+
+        // Pomiń aktualny element `tab[indexTab]` i przejdź do następnego
+        wypiszPodzbioryRekurencyjnie(tab, podzbior, indexTab + 1, indexPodzbior, n);
+    }
 
     static void podzbiory(int[] tablica) {
         int elementyWNowejTablicy = 0;
@@ -154,35 +199,36 @@ public class zestaw3 {
 
     static boolean czyPalindrom(int n) {
         // Zmienna `suma` będzie przechowywać liczbę budowaną od końca, aby porównać z oryginalną liczbą
-        int suma=0;//cyfra od tylu
+        int suma = 0;//cyfra od tylu
 // Zmienna `ucinana` przechowuje kopię liczby `n`, która będzie stopniowo "obcinana" (dzielona przez 10)
-        int ucinana=n;
+        int ucinana = n;
         // `wszystkie_cyfry` przechowuje liczbę cyfr w liczbie `n`, obliczoną przez funkcję `ileCyfr`
-        int wszystkie_cyfry=ileCyfr(n);
+        int wszystkie_cyfry = ileCyfr(n);
         // Pętla przechodzi przez każdą cyfrę liczby `n` od końca, aby złożyć ją w odwrotnej kolejności w zmiennej `suma`
         //-1 bo tak to jest o 1 zero za duzo w potegowaniu
-        for(int i=0,j=wszystkie_cyfry-1;j>=0;i++,j--){
+        for (int i = 0, j = wszystkie_cyfry - 1; j >= 0; i++, j--) {
             System.out.println(ucinana);
             // Pobieramy ostatnią cyfrę `ucinana`
-            int ostatnia_cyfra=ucinana%10;
+            int ostatnia_cyfra = ucinana % 10;
             // Dodajemy cyfrę do `suma` na odpowiedniej pozycji (w miejscu potęgi dziesiątki `j`)
-            suma=suma+ostatnia_cyfra*(int)(Math.pow(10,j));
+            suma = suma + ostatnia_cyfra * (int) (Math.pow(10, j));
             System.out.println(suma);
             // Usuwamy ostatnią cyfrę z `ucinana` przez dzielenie przez 10
-            ucinana=ucinana/10;
+            ucinana = ucinana / 10;
         }
         // Porównujemy złożoną liczbę `suma` z oryginalną liczbą `n`
         // Jeśli są równe, liczba jest palindromem i zwracamy `true`, w przeciwnym razie `false`
-        if(suma==n) return true;
+        if (suma == n) return true;
         else return false;
     }
+
     //nigdzie w poleceniu nie ma ze ma wszytko siedziec w jednej funcji i nie moge sobie tego rozbić
     //wiec rozbije
-    static int ileCyfr(int n){
-        int ile=0;
+    static int ileCyfr(int n) {
+        int ile = 0;
         int i = 0;
-        while (n!=0) {
-            n=n/10;
+        while (n != 0) {
+            n = n / 10;
             i++;
             ile++;
         }
@@ -291,20 +337,23 @@ public class zestaw3 {
         //}
         return wynik;
     }
-
+/**Silnia podwójna liczby n to iloczyn wszystkich liczb o tej samej parzystości
+ * (parzyste lub nieparzyste) co n, mniejszych lub równych n.
+ * Na przykład, 5!! (silnia podwójna dla liczby 5) to 5 * 3 * 1 = 15. */
     static void silnia(int m, int n) {
         int suma = 1;
-        for (int i = m; i <= n; i += m) {
+        for (int i = n; i >0; i -= m) {
             suma *= i;
             System.out.println(i);
             System.out.println(suma);
         }
     }
 
-    //nie bylo napisane ktora wiec jest dla nieparzystych
+/** Silnia podwójna liczby n to iloczyn wszystkich liczb o tej samej parzystości (parzyste lub nieparzyste)
+ *  co n, mniejszych lub równych n. Na przykład, 5!! (silnia podwójna dla liczby 5) to 5 * 3 * 1 = 15.*/
     static void silniaPodwojona(int n) {
         int suma = 1;
-        for (int i = 1; i <= n; i += 2) {
+        for (int i = n; i >0; i -= 2) {
             suma *= i;
             System.out.println(i);
             System.out.println(suma);

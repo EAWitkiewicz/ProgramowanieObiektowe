@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/zestaw5.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nowy dokument tekstowy.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProgramowanieObiektowe/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProgramowanieObiektowe/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ProgramowanieObiektowe/zestaw4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProgramowanieObiektowe/zestaw4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProgramowanieObiektowe/zestaw5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProgramowanieObiektowe/zestaw5.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zestaw3.java" beforeDir="false" afterPath="$PROJECT_DIR$/zestaw3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zestaw4.java" beforeDir="false" afterPath="$PROJECT_DIR$/zestaw4.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +72,7 @@
       <workItem from="1730376845022" duration="15929000" />
       <workItem from="1730714535524" duration="6435000" />
       <workItem from="1731133778052" duration="177000" />
-      <workItem from="1731403080278" duration="4261000" />
+      <workItem from="1731403080278" duration="6094000" />
     </task>
     <servers />
   </component>
