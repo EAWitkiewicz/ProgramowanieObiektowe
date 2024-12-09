@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 public class zestaw6 {
     static class KoszykZakupowy {
         HashMap<Produkt, Integer> produkty;
@@ -16,14 +17,14 @@ public class zestaw6 {
                 throw new ArithmeticException("maksymalnie mozna dodać " + produkt.getIloscNaMagazynie() + " sztuk");
             } else {
                 produkt.usunZMagazynu(ilosc);
-                produkty.put(produkt, ilosc);
+                produkty.put(produkt, produkty.getOrDefault(produkt, 0) + ilosc);
             }
         }
 
         public void wyswietlZawartoscKoszyka() {
-            if(produkty.isEmpty()){
+            if (produkty.isEmpty()) {
                 System.out.println("koszyk jest pusty");
-            }else {
+            } else {
                 for (Produkt produkt : produkty.keySet()) {
                     System.out.println(produkt.nazwa + "\nsztuk: " + produkty.get(produkt) + "\ncena 1 sztuki: " + produkt.cena + "\n");
                 }
@@ -31,17 +32,19 @@ public class zestaw6 {
         }
 
         public double obliczCalkowitaWartosc() {
-            double wartoscCalkowita=0; //ilosc produktow+cena prodowktow
+            double wartoscCalkowita = 0; //ilosc produktow+cena prodowktow
             for (Produkt produkt : produkty.keySet()) {
-                wartoscCalkowita=wartoscCalkowita+(produkt.getCena()*produkty.get(produkt));
+                wartoscCalkowita = wartoscCalkowita + (produkt.getCena() * produkty.get(produkt));
             }
             return wartoscCalkowita;
         }
 
     }
+
     static class Magazyn {
-        Map<String,Integer> produktyIichIlosc=new HashMap<String,Integer>();
+        Map<String, Integer> produktyIichIlosc = new HashMap<String, Integer>();
     }
+
     static class Produkt {
         String nazwa;
         double cena;
@@ -54,10 +57,7 @@ public class zestaw6 {
         }
 
         public void wyswietlInformacje() {
-            System.out.println
-                    ("Nazwa: " + this.nazwa + "\n"
-                            + "Cena: " + this.cena + "\n" + "Ilość na magazynie: " + this.iloscNaMagazynie+"\n"
-                    );
+            System.out.println(toString());
         }
 
         public int dodajDoMagazynu(int ileDodac) {
@@ -80,9 +80,31 @@ public class zestaw6 {
         public double getCena() {
             return cena;
         }
+
+        @Override
+        public String toString() {
+            return "Nazwa: " + this.nazwa + "\n"
+                    + "Cena: " + this.cena + "\n" +
+                    "Ilość na magazynie: " + this.iloscNaMagazynie + "\n";
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            Produkt produkt = (Produkt) obj;
+            return this.nazwa.equals(produkt.nazwa);
+        }
+
+        @Override
+        public int hashCode() {
+            return this.nazwa.hashCode();
+        }
     }
+
     static class Zamowienie {
         KoszykZakupowy koszyk;
+        Platnosc platnosc;
 
         enum Status {
             przekazane_do_realizacji,
@@ -103,30 +125,34 @@ public class zestaw6 {
         }
 
         public Status ustawStatusZamowienia(Status status) {
-            switch (status) {
-                case przekazane_do_realizacji:
-                    return this.statusZamowienia= Status.przekazane_do_realizacji;
-                case w_realizacji:
-                    return this.statusZamowienia= Status.w_realizacji;
-                case gotowe_do_wysylki:
-                    return this.statusZamowienia= Status.wyslane;
-                case wydane_do_doreczenia:
-                    return this.statusZamowienia= Status.wydane_do_doreczenia;
-                case doreczone:
-                    return this.statusZamowienia= Status.doreczone;
-                case odebrane:
-                    return this.statusZamowienia= Status.odebrane;
-                default:
-                    throw new AssertionError();
+            if (status == null) {
+                throw new IllegalArgumentException("zly status zamowienia");
             }
-
+            this.statusZamowienia = status;
+            return this.statusZamowienia;
         }
-        public void wyswietlZamowienie(){
+
+        public void wyswietlZamowienie() {
             koszyk.wyswietlZawartoscKoszyka();
             System.out.println(statusZamowienia);
         }
+
+        public void finalizujZamowienie(Platnosc platnosc) {
+            if (platnosc.statusPlatnosci == Platnosc.Status.oplacane) {
+                this.statusZamowienia = Status.gotowe_do_wysylki;
+                System.out.println("zamowienie gotowe do wysylki");
+            } else {
+                System.out.println("zamowienie nei zsoatlo oplacone!");
+            }
+        }
+
+        void zwrocProdukt(Produkt produkt, int ilosc, double pieniadze, KoszykZakupowy koszyk) {
+            produkt.dodajDoMagazynu(ilosc);
+            koszyk.produkty.remove(produkt);
+        }
     }
-    static class Klient{
+
+    static class Klient {
         String imie;
         String nazwisko;
         ArrayList<Zamowienie> listaZamowien;
@@ -142,10 +168,10 @@ public class zestaw6 {
             return this.listaZamowien;
         }
 
-        public void wyswietlHistorieZamowien(){
-            if(listaZamowien.isEmpty()){
+        public void wyswietlHistorieZamowien() {
+            if (listaZamowien.isEmpty()) {
                 System.out.println("Brak zamowien do wyswitlenia");
-            }else{
+            } else {
                 System.out.println("Lista Zamowien");
                 for (Zamowienie i : listaZamowien) {
                     i.wyswietlZamowienie();
@@ -153,47 +179,83 @@ public class zestaw6 {
             }
         }
 
-        public double obliczLacznyKosztZamowien(){
+        public double obliczLacznyKosztZamowien() {
             double lacznyKosztZamowien = 0;
 
             for (Zamowienie i : listaZamowien) {
-                lacznyKosztZamowien+=i.koszyk.obliczCalkowitaWartosc();
+                lacznyKosztZamowien += i.koszyk.obliczCalkowitaWartosc();
             }
             return lacznyKosztZamowien;
         }
     }
-    class Sklep{
-        ArrayList<Produkt>produkty;
 
-        Sklep(){
-            this.produkty=new ArrayList<Produkt>();
+    static class Sklep {
+        Map<String, Produkt> produkty;
+
+        Sklep() {
+            this.produkty = new HashMap<>();
         }
 
-        public ArrayList<Produkt> dodajProdukt(Produkt produkt){
-            if(produkt==null){
-                this.produkty.add(produkt);
-                return this.produkty;
-            }else{
-                throw new AssertionError();
+        public void dodajProdukt(Produkt produkt) {
+            if (produkty.containsKey(produkt.nazwa)) {
+                throw new IllegalArgumentException("Produkt o tej nazwie już istnieje w sklepie.");
             }
+            produkty.put(produkt.nazwa, produkt);
         }
 
-        public void wyswietlOferty(){
-            for (Produkt i : produkty) {
-                i.wyswietlInformacje();
+        public void wyswietlOferty() {
+            for (Produkt produkt : produkty.values()) {
+                produkt.wyswietlInformacje();
             }
+
         }
 
-        public Produkt wyszukajProdukt(String nazwaSzukanegoProduktu){
-            Produkt szukanyProdukt=null;
-            for (Produkt i : produkty) {
-                if(nazwaSzukanegoProduktu==i.nazwa){
-                    szukanyProdukt=i;
-                }
+        public Produkt wyszukajProdukt(String nazwaSzukanegoProduktu) {
+            return produkty.get(nazwaSzukanegoProduktu);
+        }
+
+        public void zakupy(String nazwaProduktu, int ilosc, KoszykZakupowy koszykKlienta) {
+            Produkt produktZakupiany = wyszukajProdukt(nazwaProduktu);
+            if (produktZakupiany == null) {
+                System.out.println("Produkt o nazwie \"" + nazwaProduktu + "\" nie jest dostępny w sklepie.");
+                return;
             }
-            return szukanyProdukt;
+            if (produktZakupiany.getIloscNaMagazynie() < ilosc) {
+                System.out.println("Brak wystarczającej ilości produktu \"" + nazwaProduktu + "\" w sklepie.");
+                return;
+            }
+
+            produktZakupiany.usunZMagazynu(ilosc);
+            koszykKlienta.dodajProdukty(ilosc, produktZakupiany);
         }
     }
+
+    static class Platnosc {
+        double kwota;
+
+        enum Status {
+            do_zaplaty,
+            przetwarzanie_platnosci,
+            oplacane
+        }
+
+        Status statusPlatnosci;
+
+        Platnosc(double kwota) {
+            this.kwota = kwota;
+            this.statusPlatnosci = Status.do_zaplaty;
+        }
+
+        public void zaplac() {
+            if (this.kwota > 0) {
+                this.statusPlatnosci = Status.oplacane;
+                this.kwota = 0;
+            } else {
+                System.out.println("Brak zamowiene w sklepie.");
+            }
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("ZADANIE 1");
         Produkt produkt = new Produkt("ksiazka", 22, 5);
@@ -214,22 +276,22 @@ public class zestaw6 {
 
         koszykZakupowy.wyswietlZawartoscKoszyka();
 
-        koszykZakupowy.dodajProdukty(2,notes);
-        koszykZakupowy.dodajProdukty(2,dlugopis);
-        koszykZakupowy.dodajProdukty(2,olowek);
+        koszykZakupowy.dodajProdukty(2, notes);
+        koszykZakupowy.dodajProdukty(2, dlugopis);
+        koszykZakupowy.dodajProdukty(2, olowek);
 
         koszykZakupowy.wyswietlZawartoscKoszyka();
 
-        System.out.println("koszt całkowity:"+koszykZakupowy.obliczCalkowitaWartosc());
+        System.out.println("koszt całkowity:" + koszykZakupowy.obliczCalkowitaWartosc());
         System.out.println("ZADANIE 3");
 
-        Zamowienie zamowienie1=new Zamowienie(koszykZakupowy, Zamowienie.Status.w_realizacji);
-        Zamowienie zamowienie2=new Zamowienie(koszykZakupowy, Zamowienie.Status.w_realizacji);
+        Zamowienie zamowienie1 = new Zamowienie(koszykZakupowy, Zamowienie.Status.w_realizacji);
+        Zamowienie zamowienie2 = new Zamowienie(koszykZakupowy, Zamowienie.Status.w_realizacji);
         zamowienie1.ustawStatusZamowienia(Zamowienie.Status.doreczone);
         zamowienie1.wyswietlZamowienie();
 
         System.out.println("ZADANIE 4");
-        Klient jest_taki_klient=new Klient("Żbik","Sewerynowski");
+        Klient jest_taki_klient = new Klient("Żbik", "Sewerynowski");
         jest_taki_klient.wyswietlHistorieZamowien();
         jest_taki_klient.dodajZmowienie(zamowienie1);
         jest_taki_klient.dodajZmowienie(zamowienie2);
@@ -237,5 +299,25 @@ public class zestaw6 {
         jest_taki_klient.wyswietlHistorieZamowien();
 
         System.out.println(jest_taki_klient.obliczLacznyKosztZamowien());
+
+        System.out.println("ZADANIE 5");
+        Sklep papierniczy = new Sklep();
+
+        papierniczy.wyswietlOferty();
+
+        papierniczy.dodajProdukt(notes);
+        papierniczy.dodajProdukt(dlugopis);
+        papierniczy.dodajProdukt(olowek);
+
+        papierniczy.wyswietlOferty();
+
+        System.out.println(papierniczy.wyszukajProdukt("dlugopis"));
+
+        KoszykZakupowy koszykZakupowy1 = new KoszykZakupowy();
+        koszykZakupowy1.wyswietlZawartoscKoszyka();
+        papierniczy.zakupy("notes", 1, koszykZakupowy1);
+        koszykZakupowy1.wyswietlZawartoscKoszyka();
+
+
     }
 }
