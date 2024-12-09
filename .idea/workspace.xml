@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_11_2024_10_25_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_11_2024_10_25_[Changes]/zestaw4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_11_2024_10_25__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05" name="Changes" comment="porzadki">
+      <change afterPath="$PROJECT_DIR$/zestaw6.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,11 +72,25 @@
       <workItem from="1731753182299" duration="3645000" />
       <workItem from="1733742367669" duration="103000" />
       <workItem from="1733742479400" duration="146000" />
+      <workItem from="1733742696686" duration="327000" />
     </task>
+    <task id="LOCAL-00001" summary="porzadki">
+      <option name="closed" value="true" />
+      <created>1733742858288</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1733742858288</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="porzadki" />
+    <option name="LAST_COMMIT_MESSAGE" value="porzadki" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
