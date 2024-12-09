@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class zestaw6 {
-    class KoszykZakupowy {
+    static class KoszykZakupowy {
         HashMap<Produkt, Integer> produkty;
 
         public KoszykZakupowy() {
@@ -39,10 +39,10 @@ public class zestaw6 {
         }
 
     }
-    class Magazyn {
+    static class Magazyn {
         Map<String,Integer> produktyIichIlosc=new HashMap<String,Integer>();
     }
-    public class Produkt {
+    static class Produkt {
         String nazwa;
         double cena;
         int iloscNaMagazynie;
@@ -81,7 +81,7 @@ public class zestaw6 {
             return cena;
         }
     }
-    class Zamowienie {
+    static class Zamowienie {
         KoszykZakupowy koszyk;
 
         enum Status {
@@ -126,7 +126,7 @@ public class zestaw6 {
             System.out.println(statusZamowienia);
         }
     }
-    class Klient{
+    static class Klient{
         String imie;
         String nazwisko;
         ArrayList<Zamowienie> listaZamowien;
