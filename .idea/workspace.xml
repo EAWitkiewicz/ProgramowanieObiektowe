@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ciagi_i_palindrom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/d.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rekurancje.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tablicenotatki.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_11_2024_10_25_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_11_2024_10_25_[Changes]/zestaw4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_11_2024_10_25__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +72,9 @@
       <workItem from="1730714535524" duration="6435000" />
       <workItem from="1731133778052" duration="177000" />
       <workItem from="1731403080278" duration="6886000" />
-      <workItem from="1731753182299" duration="2034000" />
+      <workItem from="1731753182299" duration="3645000" />
+      <workItem from="1733742367669" duration="103000" />
+      <workItem from="1733742479400" duration="146000" />
     </task>
     <servers />
   </component>
