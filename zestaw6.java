@@ -5,76 +5,56 @@ import java.util.Map;
 
 public class zestaw6 {
     static class KoszykZakupowy {
-        HashMap<Produkt, Integer> produkty;
+        //k:produkt v:cena
+        HashMap<Produkt, Integer> koszyk;
 
         public KoszykZakupowy() {
-            this.produkty = new HashMap<Produkt, Integer>();
+            this.koszyk = new HashMap<Produkt, Integer>();
 
         }
 
-        public void dodajProdukty(int ilosc, Produkt produkt) {
-            if (produkt.getIloscNaMagazynie() < ilosc) {
-                throw new ArithmeticException("maksymalnie mozna dodać " + produkt.getIloscNaMagazynie() + " sztuk");
+        public void dodajProdukty(int ilosc, Produkt produkt,zestaw7.Magazyn magazyn) {
+            if (magazyn.getIloscDanegoProduktuNaMagzaynie(produkt) < ilosc) {
+                throw new ArithmeticException("maksymalnie mozna dodać " + magazyn.getIloscDanegoProduktuNaMagzaynie(produkt) + " sztuk");
             } else {
-                produkt.usunZMagazynu(ilosc);
-                produkty.put(produkt, produkty.getOrDefault(produkt, 0) + ilosc);
+                magazyn.usunZMagazynu(produkt,ilosc);
+                koszyk.put(produkt, koszyk.getOrDefault(produkt, 0) + ilosc);
             }
         }
 
         public void wyswietlZawartoscKoszyka() {
-            if (produkty.isEmpty()) {
+            if (koszyk.isEmpty()) {
                 System.out.println("koszyk jest pusty");
             } else {
-                for (Produkt produkt : produkty.keySet()) {
-                    System.out.println(produkt.nazwa + "\nsztuk: " + produkty.get(produkt) + "\ncena 1 sztuki: " + produkt.cena + "\n");
+                for (Produkt produkt : koszyk.keySet()) {
+                    System.out.println(produkt.nazwa + "\nsztuk: " + koszyk.get(produkt) + "\ncena 1 sztuki: " + produkt.cena + "\n");
                 }
             }
         }
 
         public double obliczCalkowitaWartosc() {
             double wartoscCalkowita = 0; //ilosc produktow+cena prodowktow
-            for (Produkt produkt : produkty.keySet()) {
-                wartoscCalkowita = wartoscCalkowita + (produkt.getCena() * produkty.get(produkt));
+            for (Produkt produkt : koszyk.keySet()) {
+                wartoscCalkowita = wartoscCalkowita + (produkt.getCena() * koszyk.get(produkt));
             }
             return wartoscCalkowita;
         }
 
     }
 
-    static class Magazyn {
-        Map<String, Integer> produktyIichIlosc = new HashMap<String, Integer>();
-    }
-
     static class Produkt {
         String nazwa;
         double cena;
         int iloscNaMagazynie;
-
-        public Produkt(String nazwa, double cena, int iloscNaMagazynie) {
+        public Produkt(String nazwa, double cena,zestaw7.Magazyn magazyn) {
             this.nazwa = nazwa;
             this.cena = cena;
-            this.iloscNaMagazynie = iloscNaMagazynie;
+            this.iloscNaMagazynie = magazyn.IloscDanegoProduktuNaMagazynie();
+
         }
 
         public void wyswietlInformacje() {
             System.out.println(toString());
-        }
-
-        public int dodajDoMagazynu(int ileDodac) {
-            this.iloscNaMagazynie = this.iloscNaMagazynie + ileDodac;
-            return this.iloscNaMagazynie;
-        }
-
-        public void usunZMagazynu(int ileZabrac) {
-            if (this.iloscNaMagazynie < ileZabrac) {
-                System.out.println("Nie ma wystarczajcej ilosci");
-            } else {
-                this.iloscNaMagazynie = this.iloscNaMagazynie - ileZabrac;
-            }
-        }
-
-        public int getIloscNaMagazynie() {
-            return iloscNaMagazynie;
         }
 
         public double getCena() {
@@ -90,10 +70,12 @@ public class zestaw6 {
 
         @Override
         public boolean equals(Object obj) {
+            //sprawdzanie czy oba obiekty sa tym samym bojektem w pamieci
             if (this == obj) return true;
+            //jesli tak ,ale obiekt jest nuelem lub klasa jest inna false
             if (obj == null || getClass() != obj.getClass()) return false;
-            Produkt produkt = (Produkt) obj;
-            return this.nazwa.equals(produkt.nazwa);
+            Produkt produkt = (Produkt) obj; //rzutowanie obiektow ktore sie powiedzie bo wczesniej sprawdzilismy
+            return this.nazwa.equals(produkt.nazwa);//sprawdzanie czy nazwa jest taka sama
         }
 
         @Override
@@ -146,9 +128,10 @@ public class zestaw6 {
             }
         }
 
-        void zwrocProdukt(Produkt produkt, int ilosc, double pieniadze, KoszykZakupowy koszyk) {
-            produkt.dodajDoMagazynu(ilosc);
-            koszyk.produkty.remove(produkt);
+        void zwrocProdukt(Produkt produkt, int ilosc, double pieniadze, KoszykZakupowy koszyk,zestaw7.Magazyn magazyn) {
+            magazyn.dodajDoMagazynu(produkt,ilosc);
+            koszyk.koszyk.remove(produkt);
+            //todo pieniadze wracją do kl
         }
     }
 
@@ -214,19 +197,18 @@ public class zestaw6 {
             return produkty.get(nazwaSzukanegoProduktu);
         }
 
-        public void zakupy(String nazwaProduktu, int ilosc, KoszykZakupowy koszykKlienta) {
+        public void zakupy(String nazwaProduktu, int ilosc, KoszykZakupowy koszykKlienta, zestaw7.Magazyn magazyn) {
             Produkt produktZakupiany = wyszukajProdukt(nazwaProduktu);
             if (produktZakupiany == null) {
                 System.out.println("Produkt o nazwie \"" + nazwaProduktu + "\" nie jest dostępny w sklepie.");
                 return;
             }
-            if (produktZakupiany.getIloscNaMagazynie() < ilosc) {
+            if (magazyn.getIloscDanegoProduktuNaMagzaynie(produktZakupiany) < ilosc) {
                 System.out.println("Brak wystarczającej ilości produktu \"" + nazwaProduktu + "\" w sklepie.");
                 return;
             }
-
-            produktZakupiany.usunZMagazynu(ilosc);
-            koszykKlienta.dodajProdukty(ilosc, produktZakupiany);
+            magazyn.usunZMagazynu(produktZakupiany,ilosc);
+            koszykKlienta.dodajProdukty(ilosc, produktZakupiany,magazyn);
         }
     }
 
@@ -258,7 +240,9 @@ public class zestaw6 {
 
     public static void main(String[] args) {
         System.out.println("ZADANIE 1");
-        Produkt produkt = new Produkt("ksiazka", 22, 5);
+        Produkt produkt = new Produkt("ksiazka", 22);
+        zestaw7.Magazyn magazyn = new zestaw7.Magazyn(,10);
+
 
         produkt.wyswietlInformacje();
         produkt.usunZMagazynu(3);
