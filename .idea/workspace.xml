@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05" name="Changes" comment="zestaw 6 ctrl alt l">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zestaw6.java" beforeDir="false" afterPath="$PROJECT_DIR$/zestaw6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zestaw7.java" beforeDir="false" afterPath="$PROJECT_DIR$/zestaw7.java" afterDir="false" />
-    </list>
+    <list default="true" id="d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05" name="Changes" comment="zestaw 6 ctrl alt l" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,6 +32,9 @@
     &quot;accountId&quot;: &quot;8b4acd24-b6af-4862-8624-2dc923ab587f&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -89,7 +88,7 @@
       <workItem from="1733742479400" duration="146000" />
       <workItem from="1733742696686" duration="6812000" />
       <workItem from="1733760264053" duration="9430000" />
-      <workItem from="1735375030302" duration="7985000" />
+      <workItem from="1735375030302" duration="8903000" />
     </task>
     <task id="LOCAL-00001" summary="porzadki">
       <option name="closed" value="true" />
