@@ -4,12 +4,16 @@ import java.util.Map;
 public class zestaw7 {
     static class Magazyn {
         //przechowywane produktów i ich ilosci
-        Map<zestaw6.Produkt,Integer> produkty=new HashMap<zestaw6.Produkt,Integer>();
+        Map<zestaw6.Produkt,Integer> produkty;
         public int iloscNaMagazynie=0;
 
-        Magazyn(zestaw6.Produkt produkt,int ilosc){
-            this.produkty.put(produkt, ilosc);
-            this.iloscNaMagazynie=ilosc;
+        //poprzedni
+//        Magazyn(zestaw6.Produkt produkt,int ilosc){
+//            this.produkty.put(produkt, ilosc);
+//            this.iloscNaMagazynie=ilosc;
+
+        Magazyn(){
+            this.produkty=new HashMap<zestaw6.Produkt,Integer>();
         }
 
         public int getIloscDanegoProduktuNaMagzaynie(zestaw6.Produkt produkt){

@@ -46,10 +46,10 @@ public class zestaw6 {
         String nazwa;
         double cena;
         int iloscNaMagazynie;
-        public Produkt(String nazwa, double cena,zestaw7.Magazyn magazyn) {
+        public Produkt(String nazwa, double cena){//,zestaw7.Magazyn magazyn) {
             this.nazwa = nazwa;
             this.cena = cena;
-            this.iloscNaMagazynie = magazyn.IloscDanegoProduktuNaMagazynie();
+            //this.iloscNaMagazynie = magazyn.IloscDanegoProduktuNaMagazynie();
 
         }
 
@@ -240,11 +240,13 @@ public class zestaw6 {
 
     public static void main(String[] args) {
         System.out.println("ZADANIE 1");
-        Produkt produkt = new Produkt("ksiazka", 22);
-        zestaw7.Magazyn magazyn = new zestaw7.Magazyn(,10);
+        Produkt ksiazki = new Produkt("ksiazka", 22);
+        zestaw7.Magazyn magazyn = new zestaw7.Magazyn();
+        magazyn.dodajDoMagazynu(ksiazki,22);
 
-
+        //wyrzucic w toString w klasie produkt informacje o jego ilosci na magazynie i przeniesc to do klasy magazynu
         produkt.wyswietlInformacje();
+        //zamiast produkt _> magazyn.
         produkt.usunZMagazynu(3);
         produkt.wyswietlInformacje();
         produkt.usunZMagazynu(3);
@@ -253,6 +255,7 @@ public class zestaw6 {
         produkt.wyswietlInformacje();
 
         System.out.println("ZADANIE 2");
+        //bez ilosci
         Produkt notes = new Produkt("notes", 10, 5);
         Produkt dlugopis = new Produkt("dlugopis", 5, 5);
         Produkt olowek = new Produkt("olowek", 1, 5);
@@ -260,6 +263,7 @@ public class zestaw6 {
 
         koszykZakupowy.wyswietlZawartoscKoszyka();
 
+        //dodac w nawiasie z ktorego magazynu zdjemujemy
         koszykZakupowy.dodajProdukty(2, notes);
         koszykZakupowy.dodajProdukty(2, dlugopis);
         koszykZakupowy.dodajProdukty(2, olowek);
@@ -299,6 +303,7 @@ public class zestaw6 {
 
         KoszykZakupowy koszykZakupowy1 = new KoszykZakupowy();
         koszykZakupowy1.wyswietlZawartoscKoszyka();
+        //dodac pramaetr magazynu
         papierniczy.zakupy("notes", 1, koszykZakupowy1);
         koszykZakupowy1.wyswietlZawartoscKoszyka();
 

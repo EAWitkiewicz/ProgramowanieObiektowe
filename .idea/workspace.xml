@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05" name="Changes" comment="zestaw 6 ctrl alt l" />
+    <list default="true" id="d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05" name="Changes" comment="zestaw 7 zad 1v1">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zestaw6.java" beforeDir="false" afterPath="$PROJECT_DIR$/zestaw6.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zestaw7.java" beforeDir="false" afterPath="$PROJECT_DIR$/zestaw7.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,7 +37,7 @@
   }
 }</component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -88,7 +92,8 @@
       <workItem from="1733742479400" duration="146000" />
       <workItem from="1733742696686" duration="6812000" />
       <workItem from="1733760264053" duration="9430000" />
-      <workItem from="1735375030302" duration="8903000" />
+      <workItem from="1735375030302" duration="9039000" />
+      <workItem from="1735993698391" duration="3309000" />
     </task>
     <task id="LOCAL-00001" summary="porzadki">
       <option name="closed" value="true" />
@@ -122,7 +127,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733779799447</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="zestaw 7 zad 1v1">
+      <option name="closed" value="true" />
+      <created>1735386513943</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1735386513943</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,7 +146,8 @@
     <MESSAGE value="wywalenie zbednych rzeczy" />
     <MESSAGE value="gita ogarnianie" />
     <MESSAGE value="zestaw 6 ctrl alt l" />
-    <option name="LAST_COMMIT_MESSAGE" value="zestaw 6 ctrl alt l" />
+    <MESSAGE value="zestaw 7 zad 1v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="zestaw 7 zad 1v1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -157,6 +171,11 @@
           <url>file://$PROJECT_DIR$/zestaw4.java</url>
           <line>50</line>
           <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/zestaw7.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
