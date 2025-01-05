@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 
 public class zestaw6 {
     static class KoszykZakupowy {
@@ -173,28 +171,41 @@ public class zestaw6 {
     }
 
     static class Sklep {
-        Map<String, Produkt> produkty;
+        String nazwaSklepu;
+        LocalDate dataPowstania;
+        zestaw7.Magazyn magazynSklepu;
 
-        Sklep() {
-            this.produkty = new HashMap<>();
+        Sklep(String nazwaSklepu, LocalDate dataPowstania) {
+            LocalDate obecnaData=LocalDate.now();
+
+            if(dataPowstania.isAfter(obecnaData)) {
+                throw new IllegalArgumentException("Data nie moze byc z przyszosci");
+            }
+            this.nazwaSklepu = nazwaSklepu;
+            this.dataPowstania = dataPowstania;
+            this.magazynSklepu = new zestaw7.Magazyn();
         }
 
-        public void dodajProdukt(Produkt produkt) {
-            if (produkty.containsKey(produkt.nazwa)) {
+        public void dodajProdukt(Produkt produkt,int ilosc) {
+            if (magazynSklepu.produkty.containsKey(produkt)) {
                 throw new IllegalArgumentException("Produkt o tej nazwie już istnieje w sklepie.");
             }
-            produkty.put(produkt.nazwa, produkt);
+            magazynSklepu.dodajDoMagazynu(produkt,ilosc);
         }
 
-        public void wyswietlOferty() {
-            for (Produkt produkt : produkty.values()) {
-                produkt.wyswietlInformacje();
-            }
-
-        }
+//        @Override
+//        public String toString() {
+//
+//        }
 
         public Produkt wyszukajProdukt(String nazwaSzukanegoProduktu) {
-            return produkty.get(nazwaSzukanegoProduktu);
+            //analizuje wszytkie produkty w mapie i sprawdza nazwy
+            for (Produkt produktIterowany: magazynSklepu.produkty.keySet()) {
+                if(produktIterowany.nazwa.equals(nazwaSzukanegoProduktu)) {
+                    return produktIterowany;
+                }
+            }
+            return null;
         }
 
         public void zakupy(String nazwaProduktu, int ilosc, KoszykZakupowy koszykKlienta, zestaw7.Magazyn magazyn) {
@@ -269,10 +280,8 @@ public class zestaw6 {
 
         koszykZakupowy.wyswietlZawartoscKoszyka();
 
-        //dodac w nawiasie z ktorego magazynu zdjemujemy
-        koszykZakupowy.dodajProdukty(2, notes,magazyn2);
-        koszykZakupowy.dodajProdukty(2, dlugopis,magazyn2);
-        koszykZakupowy.dodajProdukty(2, olowek,magazyn2);
+        koszykZakupowy.dodajProdukty(5,notes,magazyn2);
+        koszykZakupowy.dodajProdukty(1,olowek,magazyn2);
 
         koszykZakupowy.wyswietlZawartoscKoszyka();
 
@@ -295,15 +304,14 @@ public class zestaw6 {
         System.out.println(jest_taki_klient.obliczLacznyKosztZamowien());
 
         System.out.println("ZADANIE 5");
-        Sklep papierniczy = new Sklep();
+        Sklep papierniczy = new Sklep("Artykuły biurowe",LocalDate.of(2001,12,3));
 
-        papierniczy.wyswietlOferty();
+        papierniczy.toString();
 
-        papierniczy.dodajProdukt(notes);
-        papierniczy.dodajProdukt(dlugopis);
-        papierniczy.dodajProdukt(olowek);
+        papierniczy.dodajProdukt(notes,5);
+        papierniczy.dodajProdukt(dlugopis,7);
 
-        papierniczy.wyswietlOferty();
+        papierniczy.toString();
 
         System.out.println(papierniczy.wyszukajProdukt("dlugopis"));
 

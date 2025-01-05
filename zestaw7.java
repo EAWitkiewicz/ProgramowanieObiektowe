@@ -4,7 +4,7 @@ import java.util.Map;
 public class zestaw7 {
     static class Magazyn {
         //przechowywane produktów i ich ilosci
-        Map<zestaw6.Produkt,Integer> produkty;
+        static HashMap<zestaw6.Produkt,Integer> produkty;
         public int iloscNaMagazynie=0;
 
         //poprzedni
@@ -20,6 +20,7 @@ public class zestaw7 {
             //pobiera wartosc produktu a jali go nie ma w hmapie to zwraca 0
             return produkty.getOrDefault(produkt,0);
         }
+
         public void dodajDoMagazynu(zestaw6.Produkt produkt,int ileDodac) {
             if(produkty.containsKey(produkt)){
                 int obecnaIlosc=produkty.get(produkt);
@@ -58,7 +59,53 @@ public class zestaw7 {
         }
 
     }
+
+    static class Adres{
+        String ulica;
+        int numerDomu;
+        int numerMieszkania=0;
+        String miasto;
+        int kodPocztowy;
+
+        Adres(String ulica,int numerDomu,String miasto,int kodPocztowy){
+            this.ulica=ulica;
+            this.numerDomu=numerDomu;
+            this.miasto=miasto;
+            this.kodPocztowy=kodPocztowy;
+        }
+
+        Adres(String ulica,int numerDomu,int numerMieszkania,String miasto,int kodPocztowy){
+            this.ulica=ulica;
+            this.numerDomu=numerDomu;
+            this.numerMieszkania=numerMieszkania;
+            this.miasto=miasto;
+            this.kodPocztowy=kodPocztowy;
+        }
+
+        void pokaz(){
+            System.out.println("Adress:");
+            System.out.println(kodPocztowy+" "+miasto);
+            System.out.print("ul."+ulica+" "+numerDomu);
+            if(numerMieszkania!=0){
+                System.out.print("/"+numerMieszkania);
+            }
+            System.out.println("\n");
+        }
+
+        boolean przed(Adres adres2)
+        {
+            if(this.kodPocztowy<adres2.kodPocztowy){
+                return true;
+            }
+            return false;
+        }
+    }
     public static void main(String[] args) {
 
+        Adres adres=new Adres("Karwica",47,"Ruciane-Nida",12220);
+        Adres adres1=new Adres("Bursztynowa",30,1,"Olsztyn",10457);
+        adres.pokaz();
+        adres1.pokaz();
+        System.out.println(adres.przed(adres1));
     }
 }
