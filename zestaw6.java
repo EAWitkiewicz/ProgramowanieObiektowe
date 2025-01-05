@@ -64,8 +64,8 @@ public class zestaw6 {
         @Override
         public String toString() {
             return "Nazwa: " + this.nazwa + "\n"
-                    + "Cena: " + this.cena + "\n" +
-                    "Ilość na magazynie: " + this.iloscNaMagazynie + "\n";
+                    + "Cena: " + this.cena + "\n"
+                    ;
         }
 
         @Override
@@ -244,29 +244,35 @@ public class zestaw6 {
         zestaw7.Magazyn magazyn = new zestaw7.Magazyn();
         magazyn.dodajDoMagazynu(ksiazki,22);
 
-        //wyrzucic w toString w klasie produkt informacje o jego ilosci na magazynie i przeniesc to do klasy magazynu
-        produkt.wyswietlInformacje();
+
+        ksiazki.wyswietlInformacje();
         //zamiast produkt _> magazyn.
-        produkt.usunZMagazynu(3);
-        produkt.wyswietlInformacje();
-        produkt.usunZMagazynu(3);
-        produkt.wyswietlInformacje();
-        System.out.println(produkt.dodajDoMagazynu(10));
-        produkt.wyswietlInformacje();
+        magazyn.usunZMagazynu(ksiazki,3);
+        ksiazki.wyswietlInformacje();
+        System.out.println(magazyn.getIloscDanegoProduktuNaMagzaynie(ksiazki));
+
+        magazyn.dodajDoMagazynu(ksiazki,2);
+        ksiazki.wyswietlInformacje();
+        System.out.println(magazyn.getIloscDanegoProduktuNaMagzaynie(ksiazki));
 
         System.out.println("ZADANIE 2");
         //bez ilosci
-        Produkt notes = new Produkt("notes", 10, 5);
-        Produkt dlugopis = new Produkt("dlugopis", 5, 5);
-        Produkt olowek = new Produkt("olowek", 1, 5);
+        Produkt notes = new Produkt("notes", 10);
+        Produkt dlugopis = new Produkt("dlugopis", 5);
+        Produkt olowek = new Produkt("olowek", 1);
         KoszykZakupowy koszykZakupowy = new KoszykZakupowy();
+        zestaw7.Magazyn magazyn2 = new zestaw7.Magazyn();
+
+        magazyn2.dodajDoMagazynu(notes,10);
+        magazyn2.dodajDoMagazynu(dlugopis,5);
+        magazyn2.dodajDoMagazynu(olowek,1);
 
         koszykZakupowy.wyswietlZawartoscKoszyka();
 
         //dodac w nawiasie z ktorego magazynu zdjemujemy
-        koszykZakupowy.dodajProdukty(2, notes);
-        koszykZakupowy.dodajProdukty(2, dlugopis);
-        koszykZakupowy.dodajProdukty(2, olowek);
+        koszykZakupowy.dodajProdukty(2, notes,magazyn2);
+        koszykZakupowy.dodajProdukty(2, dlugopis,magazyn2);
+        koszykZakupowy.dodajProdukty(2, olowek,magazyn2);
 
         koszykZakupowy.wyswietlZawartoscKoszyka();
 
@@ -304,7 +310,7 @@ public class zestaw6 {
         KoszykZakupowy koszykZakupowy1 = new KoszykZakupowy();
         koszykZakupowy1.wyswietlZawartoscKoszyka();
         //dodac pramaetr magazynu
-        papierniczy.zakupy("notes", 1, koszykZakupowy1);
+        papierniczy.zakupy("notes", 1, koszykZakupowy1,magazyn2);
         koszykZakupowy1.wyswietlZawartoscKoszyka();
 
 

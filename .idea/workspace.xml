@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05" name="Changes" comment="zestaw 7 zad 1v1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zestaw6.java" beforeDir="false" afterPath="$PROJECT_DIR$/zestaw6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zestaw7.java" beforeDir="false" afterPath="$PROJECT_DIR$/zestaw7.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +91,7 @@
       <workItem from="1733742696686" duration="6812000" />
       <workItem from="1733760264053" duration="9430000" />
       <workItem from="1735375030302" duration="9039000" />
-      <workItem from="1735993698391" duration="3309000" />
+      <workItem from="1735993698391" duration="5278000" />
     </task>
     <task id="LOCAL-00001" summary="porzadki">
       <option name="closed" value="true" />
