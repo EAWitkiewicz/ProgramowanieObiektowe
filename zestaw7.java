@@ -72,10 +72,59 @@ public class zestaw7 {
 
     static class Adres{
         private String ulica;
+        public String getUlica() {
+            return ulica;
+        }
+        public void setUlica(String ulica) {
+            if (ulica == null || ulica.trim().isEmpty()) {
+                throw new IllegalArgumentException("Ulica nie może być pusta ani null.");
+            }
+            this.ulica = ulica;
+        }
+
         private int numerDomu;
-        private int numerMieszkania=0;
+        public int getNumerDomu() {
+            return numerDomu;
+        }
+        public void setNumerDomu(int numerDomu) {
+            if (numerDomu <= 0) {
+                throw new IllegalArgumentException("Numer domu musi być większy od zera.");
+            }
+            this.numerDomu = numerDomu;
+        }
+
+        private int numerMieszkania;
+        public int getNumerMieszkania() {
+            return numerMieszkania;
+        }
+        public void setNumerMieszkania(int numerMieszkania) {
+            if (numerMieszkania <= 0) {
+                throw new IllegalArgumentException("Numer mieszkania nie moze byc mniejszy od zera");
+            }
+            this.numerMieszkania = numerMieszkania;
+        }
+
         private String miasto;
+        public String getMiasto() {
+            return miasto;
+        }
+        public void setMiasto(String miasto) {
+            if (miasto == null || miasto.trim().isEmpty()) {
+                throw new IllegalArgumentException("Miasto nie może być puste ani null.");
+            }
+            this.miasto = miasto;
+        }
+
         private int kodPocztowy;
+        public int getKodPocztowy() {
+            return kodPocztowy;
+        }
+        public void setKodPocztowy(int kodPocztowy) {
+            if (kodPocztowy <= 0) {
+                throw new IllegalArgumentException("Kod pocztowy musi być większy od zera.");
+            }
+            this.kodPocztowy = kodPocztowy;
+        }
 
         Adres(String ulica,int numerDomu,String miasto,int kodPocztowy){
             this.ulica=ulica;
