@@ -4,7 +4,7 @@ import java.util.*;
 public class zestaw6 {
     static class KoszykZakupowy {
         //k:produkt v:cena
-        HashMap<Produkt, Integer> koszyk;
+        private HashMap<Produkt, Integer> koszyk;
 
         public KoszykZakupowy() {
             this.koszyk = new HashMap<Produkt, Integer>();
@@ -44,9 +44,9 @@ public class zestaw6 {
     }
 
     static class Produkt {
-        String nazwa;
-        double cena;
-        int iloscNaMagazynie;
+        private String nazwa;
+        private double cena;
+        private int iloscNaMagazynie;
         public Produkt(String nazwa, double cena){//,zestaw7.Magazyn magazyn) {
             this.nazwa = nazwa;
             this.cena = cena;
@@ -81,15 +81,15 @@ public class zestaw6 {
 
         @Override
         public int hashCode() {
-            return this.nazwa.hashCode();
+            return Objects.hash(nazwa,cena);
         }
     }
 
     static class Zamowienie {
-        KoszykZakupowy koszyk;
-        Platnosc platnosc;
+        private KoszykZakupowy koszyk;
+        private Platnosc platnosc;
 
-        enum Status {
+        private enum Status {
             przekazane_do_realizacji,
             w_realizacji,
             gotowe_do_wysylki,
@@ -100,7 +100,7 @@ public class zestaw6 {
 
         }
 
-        Status statusZamowienia;
+        private Status statusZamowienia;
 
         Zamowienie(KoszykZakupowy koszyk, Status status) {
             this.koszyk = koszyk;
@@ -136,9 +136,10 @@ public class zestaw6 {
     }
 
     static class Klient {
-        String imie;
-        String nazwisko;
-        ArrayList<Zamowienie> listaZamowien;
+        private String imie;
+        private String nazwisko;
+        private ArrayList<Zamowienie> listaZamowien;
+        private zestaw7.Adres adres;
 
         public Klient(String imie, String nazwisko) {
             this.imie = imie;
@@ -163,6 +164,10 @@ public class zestaw6 {
                 return s;
             }
         }
+        @Override
+        public int hashCode(){
+            return Objects.hash(imie,nazwisko,adres);
+        }
 
         public double obliczLacznyKosztZamowien() {
             double lacznyKosztZamowien = 0;
@@ -175,9 +180,9 @@ public class zestaw6 {
     }
 
     static class Sklep {
-        String nazwaSklepu;
-        LocalDate dataPowstania;
-        zestaw7.Magazyn magazynSklepu;
+        private String nazwaSklepu;
+        private LocalDate dataPowstania;
+        private zestaw7.Magazyn magazynSklepu;
 
         Sklep(String nazwaSklepu, LocalDate dataPowstania) {
             LocalDate obecnaData=LocalDate.now();
@@ -228,15 +233,15 @@ public class zestaw6 {
     }
 
     static class Platnosc {
-        double kwota;
+        private double kwota;
 
-        enum Status {
+        private enum Status {
             do_zaplaty,
             przetwarzanie_platnosci,
             oplacane
         }
 
-        Status statusPlatnosci;
+        private Status statusPlatnosci;
 
         Platnosc(double kwota) {
             this.kwota = kwota;
@@ -250,6 +255,11 @@ public class zestaw6 {
             } else {
                 System.out.println("Brak zamowiene w sklepie.");
             }
+        }
+
+        @Override
+        public int hashCode(){
+            return Objects.hash(statusPlatnosci,kwota);
         }
     }
 

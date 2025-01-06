@@ -99,6 +99,7 @@ public class zestaw7 {
             return false;
         }
     }
+
     public static void main(String[] args) {
 
         Adres adres=new Adres("Karwica",47,"Ruciane-Nida",12220);
