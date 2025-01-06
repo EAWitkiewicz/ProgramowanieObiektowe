@@ -20,14 +20,17 @@ public class zestaw6 {
             }
         }
 
-        public void wyswietlZawartoscKoszyka() {
+        @Override
+        public String toString() {
+            String s="";
             if (koszyk.isEmpty()) {
-                System.out.println("koszyk jest pusty");
+                return "koszyk jest pusty";
             } else {
                 for (Produkt produkt : koszyk.keySet()) {
-                    System.out.println(produkt.nazwa + "\nsztuk: " + koszyk.get(produkt) + "\ncena 1 sztuki: " + produkt.cena + "\n");
+                    s+=produkt.nazwa + "; sztuk: " + koszyk.get(produkt) + "; cena 1 sztuki: " + produkt.cena + "\n";
                 }
             }
+            return s;
         }
 
         public double obliczCalkowitaWartosc() {
@@ -111,10 +114,9 @@ public class zestaw6 {
             this.statusZamowienia = status;
             return this.statusZamowienia;
         }
-
-        public void wyswietlZamowienie() {
-            koszyk.wyswietlZawartoscKoszyka();
-            System.out.println(statusZamowienia);
+        @Override
+        public String toString() {
+            return koszyk.toString()+"\nstatus zamówienia: "+statusZamowienia+"\n ";
         }
 
         public void finalizujZamowienie(Platnosc platnosc) {
@@ -149,14 +151,16 @@ public class zestaw6 {
             return this.listaZamowien;
         }
 
-        public void wyswietlHistorieZamowien() {
+        @Override
+        public String toString() {
             if (listaZamowien.isEmpty()) {
-                System.out.println("Brak zamowien do wyswitlenia");
+                return "Brak zamowien do wyswitlenia";
             } else {
-                System.out.println("Lista Zamowien");
+                String s="Lista Zamowien\n";
                 for (Zamowienie i : listaZamowien) {
-                    i.wyswietlZamowienie();
+                    s+=i.toString();
                 }
+                return s;
             }
         }
 
@@ -179,7 +183,7 @@ public class zestaw6 {
             LocalDate obecnaData=LocalDate.now();
 
             if(dataPowstania.isAfter(obecnaData)) {
-                throw new IllegalArgumentException("Data nie moze byc z przyszosci");
+                throw new IllegalArgumentException("Data nie moze byc z przyszłosci");
             }
             this.nazwaSklepu = nazwaSklepu;
             this.dataPowstania = dataPowstania;
@@ -193,10 +197,10 @@ public class zestaw6 {
             magazynSklepu.dodajDoMagazynu(produkt,ilosc);
         }
 
-//        @Override
-//        public String toString() {
-//
-//        }
+        @Override
+        public String toString() {
+        return magazynSklepu.toString();
+        }
 
         public Produkt wyszukajProdukt(String nazwaSzukanegoProduktu) {
             //analizuje wszytkie produkty w mapie i sprawdza nazwy
@@ -278,12 +282,12 @@ public class zestaw6 {
         magazyn2.dodajDoMagazynu(dlugopis,5);
         magazyn2.dodajDoMagazynu(olowek,1);
 
-        koszykZakupowy.wyswietlZawartoscKoszyka();
+        koszykZakupowy.toString();
 
         koszykZakupowy.dodajProdukty(5,notes,magazyn2);
         koszykZakupowy.dodajProdukty(1,olowek,magazyn2);
 
-        koszykZakupowy.wyswietlZawartoscKoszyka();
+        koszykZakupowy.toString();
 
         System.out.println("koszt całkowity:" + koszykZakupowy.obliczCalkowitaWartosc());
         System.out.println("ZADANIE 3");
@@ -291,15 +295,15 @@ public class zestaw6 {
         Zamowienie zamowienie1 = new Zamowienie(koszykZakupowy, Zamowienie.Status.w_realizacji);
         Zamowienie zamowienie2 = new Zamowienie(koszykZakupowy, Zamowienie.Status.w_realizacji);
         zamowienie1.ustawStatusZamowienia(Zamowienie.Status.doreczone);
-        zamowienie1.wyswietlZamowienie();
+        zamowienie1.toString();
 
         System.out.println("ZADANIE 4");
         Klient jest_taki_klient = new Klient("Żbik", "Sewerynowski");
-        jest_taki_klient.wyswietlHistorieZamowien();
+        jest_taki_klient.toString();
         jest_taki_klient.dodajZmowienie(zamowienie1);
         jest_taki_klient.dodajZmowienie(zamowienie2);
 
-        jest_taki_klient.wyswietlHistorieZamowien();
+        jest_taki_klient.toString();
 
         System.out.println(jest_taki_klient.obliczLacznyKosztZamowien());
 
@@ -316,10 +320,10 @@ public class zestaw6 {
         System.out.println(papierniczy.wyszukajProdukt("dlugopis"));
 
         KoszykZakupowy koszykZakupowy1 = new KoszykZakupowy();
-        koszykZakupowy1.wyswietlZawartoscKoszyka();
+        koszykZakupowy1.toString();
         //dodac pramaetr magazynu
         papierniczy.zakupy("notes", 1, koszykZakupowy1,magazyn2);
-        koszykZakupowy1.wyswietlZawartoscKoszyka();
+        koszykZakupowy1.toString();
 
 
     }

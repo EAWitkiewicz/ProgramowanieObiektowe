@@ -7,11 +7,6 @@ public class zestaw7 {
         static HashMap<zestaw6.Produkt,Integer> produkty;
         public int iloscNaMagazynie=0;
 
-        //poprzedni
-//        Magazyn(zestaw6.Produkt produkt,int ilosc){
-//            this.produkty.put(produkt, ilosc);
-//            this.iloscNaMagazynie=ilosc;
-
         Magazyn(){
             this.produkty=new HashMap<zestaw6.Produkt,Integer>();
         }
@@ -47,11 +42,13 @@ public class zestaw7 {
             }
         }
         //wyswitalnie asortymentu magazynu
-        public void wyswitlZawartosc(){
-            System.out.println("Zawartosć magazynu:");
+        @Override
+        public String toString() {
+            String s="Zawartosć magazynu:\n";
             for (Map.Entry<zestaw6.Produkt,Integer> entry : produkty.entrySet()) {
-                System.out.println(entry.getKey() + ": " + entry.getValue()+" szt.");
+                s+=entry.getKey() + ": " + entry.getValue()+" szt.\n";
             }
+            return s;
         }
 
         public int getIloscNaMagazynie() {
@@ -82,14 +79,16 @@ public class zestaw7 {
             this.kodPocztowy=kodPocztowy;
         }
 
-        void pokaz(){
-            System.out.println("Adress:");
-            System.out.println(kodPocztowy+" "+miasto);
-            System.out.print("ul."+ulica+" "+numerDomu);
+        @Override
+        public String toString(){
+            String s="Adress:\n"+
+            kodPocztowy+" "+miasto+"\n"+
+            "ul."+ulica+" "+numerDomu;
             if(numerMieszkania!=0){
-                System.out.print("/"+numerMieszkania);
+                s+="/"+numerMieszkania;
             }
-            System.out.println("\n");
+            s+="\n";
+            return s;
         }
 
         boolean przed(Adres adres2)
@@ -104,8 +103,8 @@ public class zestaw7 {
 
         Adres adres=new Adres("Karwica",47,"Ruciane-Nida",12220);
         Adres adres1=new Adres("Bursztynowa",30,1,"Olsztyn",10457);
-        adres.pokaz();
-        adres1.pokaz();
+        adres.toString();
+        adres1.toString();
         System.out.println(adres.przed(adres1));
     }
 }
