@@ -4,8 +4,21 @@ import java.util.Map;
 public class zestaw7 {
     static class Magazyn {
         //przechowywane produktów i ich ilosci
-        static HashMap<zestaw6.Produkt,Integer> produkty;
-        public int iloscNaMagazynie=0;
+        protected static HashMap<zestaw6.Produkt,Integer> produkty;
+        public static HashMap<zestaw6.Produkt, Integer> getProdukty() {
+            return produkty;
+        }
+        public void setProdukty(HashMap<zestaw6.Produkt, Integer> produkty) {
+            this.produkty=produkty;
+        }
+
+        private int iloscNaMagazynie=0;
+        public int getIloscNaMagzynie(){
+            return iloscNaMagazynie;
+        }
+        public void setIloscNaMagzyne(int iloscNaMagazyne) {
+            this.iloscNaMagazynie=iloscNaMagazyne;
+        }
 
         Magazyn(){
             this.produkty=new HashMap<zestaw6.Produkt,Integer>();
@@ -58,11 +71,11 @@ public class zestaw7 {
     }
 
     static class Adres{
-        String ulica;
-        int numerDomu;
-        int numerMieszkania=0;
-        String miasto;
-        int kodPocztowy;
+        private String ulica;
+        private int numerDomu;
+        private int numerMieszkania=0;
+        private String miasto;
+        private int kodPocztowy;
 
         Adres(String ulica,int numerDomu,String miasto,int kodPocztowy){
             this.ulica=ulica;

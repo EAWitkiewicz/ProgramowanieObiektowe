@@ -6,6 +6,13 @@ public class zestaw6 {
         //k:produkt v:cena
         private HashMap<Produkt, Integer> koszyk;
 
+        public HashMap<Produkt, Integer> getKoszyk() {
+            return koszyk;
+        }
+        public void setKoszyk(HashMap<Produkt, Integer> koszyk) {
+            this.koszyk = koszyk;
+        }
+
         public KoszykZakupowy() {
             this.koszyk = new HashMap<Produkt, Integer>();
 
@@ -45,21 +52,34 @@ public class zestaw6 {
 
     static class Produkt {
         private String nazwa;
+        public String getNazwa() {
+            return nazwa;
+        }
+        public void setNazwa(String nazwa) {
+            if(nazwa==null || nazwa.trim().isEmpty()){
+                throw new IllegalArgumentException("Nazwa produktu nie może być pusta ani byc nullem");
+            }
+            this.nazwa = nazwa;
+        }
+
         private double cena;
-        private int iloscNaMagazynie;
+        public double getCena() {
+            return cena;
+        }
+        public void setCena(double cena) {
+            if(cena<0){
+             throw new IllegalArgumentException("Cena musi być wieksza od zera");
+            }
+            this.cena = cena;
+        }
+
         public Produkt(String nazwa, double cena){//,zestaw7.Magazyn magazyn) {
             this.nazwa = nazwa;
             this.cena = cena;
-            //this.iloscNaMagazynie = magazyn.IloscDanegoProduktuNaMagazynie();
-
         }
 
         public void wyswietlInformacje() {
             System.out.println(toString());
-        }
-
-        public double getCena() {
-            return cena;
         }
 
         @Override
@@ -87,7 +107,20 @@ public class zestaw6 {
 
     static class Zamowienie {
         private KoszykZakupowy koszyk;
+        public KoszykZakupowy getKoszyk() {
+            return koszyk;
+        }
+        public void setKoszyk(KoszykZakupowy koszyk) {
+            this.koszyk = koszyk;
+        }
+
         private Platnosc platnosc;
+        public Platnosc getPlatnosc() {
+            return platnosc;
+        }
+        public void setPlatnosc(Platnosc platnosc) {
+            this.platnosc = platnosc;
+        }
 
         private enum Status {
             przekazane_do_realizacji,
@@ -99,7 +132,15 @@ public class zestaw6 {
             odebrane
 
         }
-
+        public Status getStatusZamowienia() {
+            return statusZamowienia;
+        }
+        public void setStatusZamowienia(Status status) {
+            if (status == null) {
+                throw new IllegalArgumentException("zly status zamowienia");
+            }
+            this.statusZamowienia = status;
+        }
         private Status statusZamowienia;
 
         Zamowienie(KoszykZakupowy koszyk, Status status) {
@@ -107,13 +148,6 @@ public class zestaw6 {
             this.statusZamowienia = status;
         }
 
-        public Status ustawStatusZamowienia(Status status) {
-            if (status == null) {
-                throw new IllegalArgumentException("zly status zamowienia");
-            }
-            this.statusZamowienia = status;
-            return this.statusZamowienia;
-        }
         @Override
         public String toString() {
             return koszyk.toString()+"\nstatus zamówienia: "+statusZamowienia+"\n ";
@@ -137,9 +171,48 @@ public class zestaw6 {
 
     static class Klient {
         private String imie;
+        public String getImie() {
+            return imie;
+        }
+        public void setImie(String imie) {
+            if (imie == null || imie.trim().isEmpty()) {
+                throw new IllegalArgumentException("Imię nie może być puste ani null.");
+            }
+            this.imie = imie;
+        }
+
         private String nazwisko;
+        public String getNazwisko() {
+            return nazwisko;
+        }
+        public void setNazwisko(String nazwisko) {
+            if (nazwisko == null || nazwisko.trim().isEmpty()) {
+                throw new IllegalArgumentException("Nazwisko nie może być puste ani null.");
+            }
+            this.nazwisko = nazwisko;
+        }
+
         private ArrayList<Zamowienie> listaZamowien;
+        public ArrayList<Zamowienie> getListaZamowien() {
+            return listaZamowien;
+        }
+        public void setListaZamowien(ArrayList<Zamowienie> listaZamowien) {
+            if (listaZamowien == null) {
+                throw new IllegalArgumentException("Lista zamówień nie może być null.");
+            }
+            this.listaZamowien = listaZamowien;
+        }
+
         private zestaw7.Adres adres;
+        public zestaw7.Adres getAdres() {
+            return adres;
+        }
+        public void setAdres(zestaw7.Adres adres) {
+            if (adres == null) {
+                throw new IllegalArgumentException("Adres nie może być null.");
+            }
+            this.adres = adres;
+        }
 
         public Klient(String imie, String nazwisko) {
             this.imie = imie;
@@ -181,8 +254,37 @@ public class zestaw6 {
 
     static class Sklep {
         private String nazwaSklepu;
+        public String getNazwaSklepu() {
+            return nazwaSklepu;
+        }
+        public void setNazwaSklepu(String nazwaSklepu) {
+            if (nazwaSklepu == null || nazwaSklepu.trim().isEmpty()) {
+                throw new IllegalArgumentException("Nazwa sklepu nie może być pusta ani null.");
+            }
+            this.nazwaSklepu = nazwaSklepu;
+        }
+
         private LocalDate dataPowstania;
+        public LocalDate getDataPowstania() {
+            return dataPowstania;
+        }
+        public void setDataPowstania(LocalDate dataPowstania) {
+            if (dataPowstania == null || dataPowstania.isAfter(LocalDate.now())) {
+                throw new IllegalArgumentException("Data powstania nie może być z przyszłości ani null.");
+            }
+            this.dataPowstania = dataPowstania;
+        }
+
         private zestaw7.Magazyn magazynSklepu;
+        public zestaw7.Magazyn getMagazynSklepu() {
+            return magazynSklepu;
+        }
+        public void setMagazynSklepu(zestaw7.Magazyn magazynSklepu) {
+            if (magazynSklepu == null) {
+                throw new IllegalArgumentException("Magazyn sklepu nie może być null.");
+            }
+            this.magazynSklepu = magazynSklepu;
+        }
 
         Sklep(String nazwaSklepu, LocalDate dataPowstania) {
             LocalDate obecnaData=LocalDate.now();
@@ -234,6 +336,15 @@ public class zestaw6 {
 
     static class Platnosc {
         private double kwota;
+        public double getKwota() {
+            return kwota;
+        }
+        void setKwota(double kwota) {
+            if (kwota <= 0) {
+                throw new IllegalArgumentException("Kwota musi być większa od zera.");
+            }
+            this.kwota = kwota;
+        }
 
         private enum Status {
             do_zaplaty,
@@ -242,6 +353,15 @@ public class zestaw6 {
         }
 
         private Status statusPlatnosci;
+        public Status getStatusPlatnosci() {
+            return statusPlatnosci;
+        }
+        void setStatusPlatnosci(Status statusPlatnosci) {
+            if (statusPlatnosci == null) {
+                throw new IllegalArgumentException("Status płatności nie może być null.");
+            }
+            this.statusPlatnosci = statusPlatnosci;
+        }
 
         Platnosc(double kwota) {
             this.kwota = kwota;
@@ -304,7 +424,7 @@ public class zestaw6 {
 
         Zamowienie zamowienie1 = new Zamowienie(koszykZakupowy, Zamowienie.Status.w_realizacji);
         Zamowienie zamowienie2 = new Zamowienie(koszykZakupowy, Zamowienie.Status.w_realizacji);
-        zamowienie1.ustawStatusZamowienia(Zamowienie.Status.doreczone);
+        zamowienie1.setStatusZamowienia(Zamowienie.Status.doreczone);
         zamowienie1.toString();
 
         System.out.println("ZADANIE 4");
