@@ -2,11 +2,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class zestaw7 {
-    static class Magazyn {
+    static class Magazyn implements zestaw8.Magazyn {
         //przechowywane produktów i ich ilosci
         protected static HashMap<zestaw6.Produkt, Integer> produkty;
 
-        public static HashMap<zestaw6.Produkt, Integer> getProdukty() {
+        public HashMap<zestaw6.Produkt, Integer> getProdukty() {
             return produkty;
         }
 
@@ -76,7 +76,7 @@ public class zestaw7 {
 
     }
 
-    static class Adres {
+    static class Adres implements zestaw8.Adres {
         private String ulica;
 
         public String getUlica() {
@@ -169,7 +169,7 @@ public class zestaw7 {
             return s;
         }
 
-        boolean przed(Adres adres2) {
+        public boolean przed(Adres adres2) {
             if (this.kodPocztowy < adres2.kodPocztowy) {
                 return true;
             }

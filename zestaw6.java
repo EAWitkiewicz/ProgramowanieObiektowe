@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class zestaw6 {
-    static class KoszykZakupowy {
+    static class KoszykZakupowy implements zestaw8.KoszykZakupowy {
         //k:produkt v:cena
         private HashMap<Produkt, Integer> koszyk;
 
@@ -51,7 +51,7 @@ public class zestaw6 {
 
     }
 
-    static class Produkt {
+    static class Produkt implements zestaw8.Produkt {
         private String nazwa;
 
         public String getNazwa() {
@@ -111,7 +111,7 @@ public class zestaw6 {
         }
     }
 
-    static class Zamowienie {
+    static class Zamowienie implements zestaw8.Zamowienie {
         private KoszykZakupowy koszyk;
 
         public KoszykZakupowy getKoszyk() {
@@ -132,7 +132,7 @@ public class zestaw6 {
             this.platnosc = platnosc;
         }
 
-        private enum Status {
+        public enum Status {
             przekazane_do_realizacji,
             w_realizacji,
             gotowe_do_wysylki,
@@ -175,38 +175,35 @@ public class zestaw6 {
             }
         }
 
-        void zwrocProdukt(Produkt produkt, int ilosc, double pieniadze, KoszykZakupowy koszyk, zestaw7.Magazyn magazyn) {
+        public void zwrocProdukt(Produkt produkt, int ilosc, double pieniadze, KoszykZakupowy koszyk, zestaw7.Magazyn magazyn) {
             magazyn.dodajDoMagazynu(produkt, ilosc);
             koszyk.koszyk.remove(produkt);
             //todo pieniadze wracją do kl
         }
     }
 
-    static class Klient {
-        private String imie;
+    static class Klient extends zestaw8.Osoba implements zestaw8.Klient{
 
         public String getImie() {
-            return imie;
+            return super.imie;
         }
 
         public void setImie(String imie) {
             if (imie == null || imie.trim().isEmpty()) {
                 throw new IllegalArgumentException("Imię nie może być puste ani null.");
             }
-            this.imie = imie;
+            super.imie = imie;
         }
 
-        private String nazwisko;
-
         public String getNazwisko() {
-            return nazwisko;
+            return super.nazwisko;
         }
 
         public void setNazwisko(String nazwisko) {
             if (nazwisko == null || nazwisko.trim().isEmpty()) {
                 throw new IllegalArgumentException("Nazwisko nie może być puste ani null.");
             }
-            this.nazwisko = nazwisko;
+            super.nazwisko = nazwisko;
         }
 
         private ArrayList<Zamowienie> listaZamowien;
@@ -236,8 +233,7 @@ public class zestaw6 {
         }
 
         public Klient(String imie, String nazwisko) {
-            this.imie = imie;
-            this.nazwisko = nazwisko;
+            super(imie,nazwisko);
             this.listaZamowien = new ArrayList<Zamowienie>();
         }
 
@@ -290,7 +286,7 @@ public class zestaw6 {
         }
     }
 
-    static class Sklep {
+    static class Sklep implements zestaw8.Sklep{
         private String nazwaSklepu;
 
         public String getNazwaSklepu() {
@@ -378,21 +374,21 @@ public class zestaw6 {
         }
     }
 
-    static class Platnosc {
+    static class Platnosc implements zestaw8.Platnosc {
         private double kwota;
 
         public double getKwota() {
             return kwota;
         }
 
-        void setKwota(double kwota) {
+        public void setKwota(double kwota) {
             if (kwota <= 0) {
                 throw new IllegalArgumentException("Kwota musi być większa od zera.");
             }
             this.kwota = kwota;
         }
 
-        private enum Status {
+        public enum Status {
             do_zaplaty,
             przetwarzanie_platnosci,
             oplacane
@@ -404,7 +400,7 @@ public class zestaw6 {
             return statusPlatnosci;
         }
 
-        void setStatusPlatnosci(Status statusPlatnosci) {
+        public void setStatusPlatnosci(Status statusPlatnosci) {
             if (statusPlatnosci == null) {
                 throw new IllegalArgumentException("Status płatności nie może być null.");
             }
