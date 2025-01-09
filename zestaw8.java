@@ -104,30 +104,65 @@ public class zestaw8 {
             this.nazwisko = nazwisko;
         }
     }
-    public class Klientfirmowy extends zestaw6.Klient{
-        final String NIP=null;//todo dodac set i get z walidacja czy nie ma mniej lub wiecej cyfr
-        final String REGON=null;
-        public Klientfirmowy(String imie, String nazwisko) {
+
+    //zadanie 3
+    public class KlientFirmowy extends zestaw6.Klient{
+        //w poleceniu 3 jest aby te pola byly stalymi ale potem w setcie
+        // nie bedzie mozna ich ustawić więc rozumiem, że mamy zmienić aby nie były "final" ?
+        String NIP;
+        public String getNIP(){
+            return NIP;
+        }
+        public void setNIP(String NIP){
+            if(NIP==null || NIP.length()!=10 || !NIP.matches("^[0-9]*$") ){
+                throw  new IllegalArgumentException("NIP musi mieć 10 cyfr");
+            }else {
+            this.NIP=NIP;}
+        }
+
+        String REGON;
+        public String getREGON(){
+            return REGON;
+        }
+        public void setREGON(String REGON){
+            if(REGON==null || (REGON.length()!=9&&REGON.length()!=14) || !REGON.matches("^[0-9]*$") )
+            {
+                throw new IllegalArgumentException("REGON musi miec 9 lub 14 cyfr");
+            }else {
+                this.REGON=REGON;
+            }
+        }
+        public KlientFirmowy(String imie, String nazwisko) {
             super(imie, nazwisko);
         }
 
     }
-
     public class KlientIndwiudualny extends zestaw6.Klient{
-        final String PESEL = null;//todo dodac set i get z walidacja czy nie ma mniej lub wiecej cyfr
+        String PESEL;
+        public String getPESEL(){
+            return PESEL;
+        }
+        public void setPESEL(String PESEL){
+            if(PESEL==null || PESEL.length()!=11 || !PESEL.matches("^[0-9]*$") ){
+                throw  new IllegalArgumentException("NIP musi mieć 10 cyfr");
+            }else {
+                this.PESEL=PESEL;}
+        }
 
-        public KlientIndwiudualny(String imie, String nazwisko) {
+        private KlientIndwiudualny(String imie, String nazwisko)
+        {
             super(imie, nazwisko);
         }
 
     }
-    interface ProduktSporzywczy{
+
+    //zadanie 5
+    interface IProduktSpozywczy{
         public abstract void smak(String smak);
         public abstract void umyj();
         public abstract void zjedz();
     }
-
-    class Owoc implements ProduktSporzywczy{
+    class Owoc implements IProduktSpozywczy{
 
         public void smak(String smak) {
             System.out.println("Owoc ma smak :"+smak);
@@ -141,7 +176,7 @@ public class zestaw8 {
         }
 
     }
-    class Warzywo implements ProduktSporzywczy{
+    class Warzywo implements IProduktSpozywczy{
         public void smak(String smak) {
             System.out.println("warzywo ma smak :"+smak);
         }
@@ -152,6 +187,36 @@ public class zestaw8 {
             System.out.println("Warzywo został zjedzony");
         }
     }
+
+    //zadanie 6
+    class ProduktSpozywczy extends zestaw6.Produkt{
+        ProduktSpozywczy(String nazwa,double cena){
+            super(nazwa,cena);
+        }
+    }
+    class ProduktPrzemyslowy extends zestaw6.Produkt{
+        ProduktPrzemyslowy(String nazwa,double cena){
+            super(nazwa,cena);
+        }
+    }
+
+    //zadanie 7
+    abstract class UrzadzenieElektorniczne{
+        public abstract void napraw();
+        public abstract void uzyj();
+        public abstract void wlacz();
+        public abstract void wylacz();
+    }
+
+    abstract class Ubranie{
+        public abstract void wypierz();
+        public abstract void zaloz();
+        public abstract void wyprasuj();
+        public abstract void wyszusz();
+        public abstract void zniszcz();
+    }
+
+    //zadanie 8
 
     public static void main(String[] args) {
 
