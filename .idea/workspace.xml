@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05" name="Changes" comment="zestaw 7 zad 1v1">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zestaw8.java" beforeDir="false" afterPath="$PROJECT_DIR$/zestaw8.java" afterDir="false" />
-    </list>
+    <list default="true" id="d8f6b176-c4b1-4ad2-87d8-6e0ff3774f05" name="Changes" comment="zestaw 7 zad 1v1" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -97,7 +94,7 @@
       <workItem from="1736098879878" duration="5773000" />
       <workItem from="1736163316769" duration="9508000" />
       <workItem from="1736270513487" duration="6455000" />
-      <workItem from="1736455728295" duration="2960000" />
+      <workItem from="1736455728295" duration="3647000" />
     </task>
     <task id="LOCAL-00001" summary="porzadki">
       <option name="closed" value="true" />
