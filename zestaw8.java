@@ -13,7 +13,7 @@ public class zestaw8 {
         String toString();
         double obliczCalkowitaWartosc();
     };
-    interface Produkt{
+    public interface Produkt{
         String getNazwa();
         void setNazwa(String nazwa);
         double getCena();
@@ -157,12 +157,29 @@ public class zestaw8 {
     }
 
     //zadanie 5
-    interface IProduktSpozywczy{
+    public interface IProduktSpozywczy{
         public abstract void smak(String smak);
         public abstract void umyj();
         public abstract void zjedz();
     }
-    class Owoc implements IProduktSpozywczy{
+
+    public static class ProduktSpozywczy extends zestaw6.Produkt{
+        ProduktSpozywczy(String nazwa,double cena){
+            super(nazwa,cena);
+        }
+    }
+    public static class ProduktPrzemyslowy extends zestaw6.Produkt{
+        ProduktPrzemyslowy(String nazwa,double cena){
+            super(nazwa,cena);
+        }
+    }
+
+    //zadanie 5
+    public static class Owoc extends ProduktSpozywczy implements IProduktSpozywczy{
+
+        Owoc(String nazwa, double cena) {
+            super(nazwa, cena);
+        }
 
         public void smak(String smak) {
             System.out.println("Owoc ma smak :"+smak);
@@ -176,7 +193,11 @@ public class zestaw8 {
         }
 
     }
-    class Warzywo implements IProduktSpozywczy{
+    public static class Warzywo extends ProduktSpozywczy implements IProduktSpozywczy{
+        Warzywo(String nazwa, double cena) {
+            super(nazwa, cena);
+        }
+
         public void smak(String smak) {
             System.out.println("warzywo ma smak :"+smak);
         }
@@ -188,27 +209,19 @@ public class zestaw8 {
         }
     }
 
-    //zadanie 6
-    class ProduktSpozywczy extends zestaw6.Produkt{
-        ProduktSpozywczy(String nazwa,double cena){
-            super(nazwa,cena);
-        }
-    }
-    class ProduktPrzemyslowy extends zestaw6.Produkt{
-        ProduktPrzemyslowy(String nazwa,double cena){
-            super(nazwa,cena);
-        }
-    }
-
     //zadanie 7
-    abstract class UrzadzenieElektorniczne{
+    static abstract class UrzadzenieElektorniczne extends ProduktPrzemyslowy{
+        UrzadzenieElektorniczne(String nazwa, double cena) {
+            super(nazwa, cena);
+        }
+
         public abstract void napraw();
         public abstract void uzyj();
         public abstract void wlacz();
         public abstract void wylacz();
     }
 
-    abstract class Ubranie{
+    static abstract class Ubranie{
         public abstract void wypierz();
         public abstract void zaloz();
         public abstract void wyprasuj();
@@ -217,8 +230,91 @@ public class zestaw8 {
     }
 
     //zadanie 8
+     public static class Banan extends Owoc implements IProduktSpozywczy{
+
+        Banan(String nazwa, double cena) {
+            super(nazwa, cena);
+        }
+    }
+    public static class Awokado extends Warzywo implements IProduktSpozywczy{
+        Awokado(String nazwa, double cena) {
+            super(nazwa, cena);
+        }
+    }
+    public static class Pralka extends UrzadzenieElektorniczne{
+        Pralka(String nazwa, double cena) {
+            super(nazwa, cena);
+        }
+
+        @Override
+        public void napraw() {
+            System.out.println("Pralka działa");
+        }
+
+        @Override
+        public void uzyj() {
+            System.out.println("pralka pierze");
+        }
+
+        @Override
+        public void wlacz() {
+            System.out.println("pralka została właczona");
+        }
+
+        @Override
+        public void wylacz() {
+System.out.println("Pralka jest wylaczona");
+        }
+    }
+    public static class Koszulka extends Ubranie{
+        Koszulka(String nazwa, double cena) {
+
+        }
+
+        @Override
+        public void wypierz() {
+            System.out.println("Koszulka jest czysta");
+        }
+
+        @Override
+        public void zaloz() {
+            System.out.println("Koszulka jest znoszona");
+        }
+
+        @Override
+        public void wyprasuj() {
+            System.out.println("Koszulka jest wyprasowana");
+        }
+
+        @Override
+        public void wyszusz() {
+            System.out.println("Koszulka jest sucha");
+        }
+
+        @Override
+        public void zniszcz() {
+            System.out.println("Koszulka jest zniszczona");
+        }
+    }
 
     public static void main(String[] args) {
+    //zad 8
+        Banan bioBanan=new Banan("bioBanan",6.0);
+        Banan premiiumBanan=new Banan("premiumBanan",4.0);
+        Awokado bioAwokado=new Awokado("bioAwokado",10);
+        Awokado awokado=new Awokado("Awokado",8);
+        Pralka pralkaSamsung=new Pralka("pralkaSamsung",700.0);
+        Pralka pralkaFrania=new Pralka("pralkaFrania",100.0);
+        Koszulka koszulkaLevis=new Koszulka("koszulkaLevis",500.0);
+        Koszulka koszulkaSzmatex=new Koszulka("koszulkaSzmatex",3.0);
+        bioBanan.umyj();
+        premiiumBanan.umyj();
+        awokado.zjedz();
+        bioAwokado.wyswietlInformacje();
+        pralkaSamsung.wylacz();
+        pralkaFrania.napraw();
+        koszulkaLevis.zniszcz();
+        koszulkaSzmatex.wypierz();
 
     }
 }

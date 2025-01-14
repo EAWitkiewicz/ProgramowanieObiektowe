@@ -51,7 +51,7 @@ public class zestaw6 {
 
     }
 
-    static class Produkt implements zestaw8.Produkt {
+    public static class Produkt implements zestaw8.Produkt {
         private String nazwa;
 
         public String getNazwa() {
